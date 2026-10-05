@@ -51,6 +51,7 @@ def build_details(directory: Path, dataset: dict[str, Any], cases: list[dict[str
             "model_trace_available": traces is not None,
             "live": read_json(directory / "evidence" / "live.json", {}),
             "desktop_settings": read_json(directory / "evidence" / "desktop_settings.json", {}),
+            "desktop_batches": read_json(directory / "evidence" / "desktop_batches.json", []),
             "live_cases": live_cases,
             "live_actions": desktop.get("actions", []), "fault_injection": read_json(directory / "evidence" / "fallback.json", {}),
             "desktop_queries": read_json(directory / "evidence" / "desktop_queries.json", {}),

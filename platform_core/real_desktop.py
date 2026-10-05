@@ -11,7 +11,8 @@ from .desktop_apps import AppSession, app_plan
 from .desktop_quality import evaluate
 from .manifest import run_path, update_run
 from .model_trace import ModelTrace
-from .scoring import aggregate_queries, rank_query, recording, text_contains, refinement_issues
+from .scoring import aggregate_queries, rank_query, recording, refinement_issues
+from .paper import keyword_match
 from .validation import audit_vectors
 
 
@@ -137,10 +138,16 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
         pending = daemon.db_store.get_pending_retag(daemon.db_store.get_count())
         for offset in range(0, len(pending), daemon._retag_batch_size):
             batch = pending[offset:offset + daemon._retag_batch_size]
-            with trace.scope(phase="真实桌面整理", batch_id=f"LIVE-B{len(batches) + 1:03d}", record_ids=[r["id"] for r in batch]):
+            batch_id = f"LIVE-B{len(batches) + 1:03d}"
+            with trace.scope(phase="真实桌面整理", batch_id=batch_id, record_ids=[r["id"] for r in batch]):
                 updated = daemon.llm_processor.retag_cluster(batch)
-            daemon.db_store.update_retag_records(updated)
-            batches.append({"input_ids": [r["id"] for r in batch], "returned_ids": [r["id"] for r in updated]})
+            core_valid_results = sum(not refinement_issues(row) for row in updated)
+            written = daemon.db_store.update_retag_records(updated)
+            batches.append({"id": batch_id, "input_ids": [r["id"] for r in batch],
+                            "input_record_ids": [r["id"] for r in batch], "returned_ids": [r["id"] for r in updated],
+                            "core_valid_result_count": core_valid_results, "written": written,
+                            "model_call_ids": [call["id"] for call in trace.calls if call["context"].get("batch_id") == batch_id],
+                            "returned_ids_meaning": "本体返回列表，不代表全部得到有效整理", "written_meaning": "数据库更新操作数，不等于有效整理数"})
     rows = daemon.db_store.store.get_table().to_arrow().to_pylist()
     indexed = {row["id"]: row for row in rows}
     for example in examples:
@@ -165,7 +172,10 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
             try:
                 if method == "semantic":
                     if vectors["status"] != "done":
-                        raise ValueError("桌面记录向量无效")
+                        methods[method].append({"id": item["id"], "query": query, "status": "not_measured",
+                                                "relevant_ids": relevant, "corpus_size": len(rows), "returned_records": [],
+                                                "reason": "桌面记录向量无效或未核验，未执行语义查询"})
+                        continue
                     embedding_provider.client = trace.wrap(old_embedding_client)
                     with trace.scope(phase="真实桌面回忆", query_id=item["id"], method=method):
                         found = daemon.db_store.search_activities(query, limit=5)
@@ -174,7 +184,7 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
                     if audit_vectors([{"id": "query", "vector": None}], [{"id": "query", "vector": returned_vector}])["status"] != "done":
                         raise ValueError("查询向量无效；关键词降级结果不计为语义结果")
                 elif method == "keyword":
-                    found = [row for row in rows if text_contains(row.get("refined_summary") or row.get("summary"), item["topic"])][:5]
+                    found = [row for row in rows if keyword_match(row, {"keyword": item["topic"]})][:5]
                 else:
                     tags = [item["topic"], item["application"], item["executable_name"], "coding" if item["topic"] == "Python 函数" else
                             "reading" if item["topic"] == "数据库索引" else "writing"]

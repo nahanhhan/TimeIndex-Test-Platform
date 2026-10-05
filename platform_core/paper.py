@@ -7,7 +7,15 @@ from datetime import datetime
 from typing import Any, Callable
 
 from .details import random_reference
-from .scoring import aggregate_queries, rank_query, ratio, text_contains
+from .scoring import aggregate_queries, rank_query, ratio, text_contains, usable_text
+
+
+def retrieval_summary(record: dict[str, Any]) -> str | None:
+    """Use a valid refined summary, then the original; never search a null placeholder."""
+    for key in ("refined_summary", "summary"):
+        if usable_text(record.get(key)):
+            return record[key]
+    return None
 
 
 def keyword_match(record: dict[str, Any], query: dict[str, Any], *, raw_title: bool = False) -> bool:
@@ -22,7 +30,7 @@ def keyword_match(record: dict[str, Any], query: dict[str, Any], *, raw_title: b
                 continue
         text = "\n".join(titles)
     else:
-        text = record.get("refined_summary") or record.get("summary")
+        text = retrieval_summary(record)
     return all(text_contains(text, term) for term in query.get("keyword_terms", [query["keyword"]]))
 
 

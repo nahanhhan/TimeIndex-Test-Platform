@@ -14,6 +14,7 @@ from .scoring import SCORING_VERSION, aggregate_queries, ratio, summarize_cases
 from .validation import audit_saved_vectors
 from .details import batch_cluster_score, build_details, hide_uncontrolled_windows, random_reference
 from .report_html import render_report
+from .diagnostics import diagnose
 
 
 def calculate(run_id: str) -> dict[str, Any]:
@@ -35,6 +36,10 @@ def calculate(run_id: str) -> dict[str, Any]:
     if vectors is None:
         vectors = audit_saved_vectors(directory) if cases else {"status": "not_measured"}
     sections = {name: dict(value) for name, value in manifest.get("sections", {}).items()}
+    fallback = details["fault_injection"]
+    if isinstance(fallback.get("recorded"), bool):
+        sections["fallback"] = {"status": "done" if fallback["recorded"] else "failed",
+                                "reason": None if fallback["recorded"] else "受控失联场景执行后没有入库记录"}
     if cases:
         recorded, selected = organization["cases_done"], organization["cases_total"]
         sections["recording"] = {"status": "done" if recorded == selected else "partial" if recorded else "failed",
@@ -60,6 +65,7 @@ def calculate(run_id: str) -> dict[str, Any]:
             "model", "embedding_model", "dedicated_vm", "allow_remote_model", "allow_no_model", "resources")},
         "original_scoring_version": manifest.get("scoring_version"),
         "sections": sections, "organization": organization, "vector_integrity": vectors,
+        "diagnostics": diagnose(details, vectors, live.get("vector_integrity") if isinstance(live, dict) else None),
         "desktop": live if isinstance(live, dict) else {"status": "not_measured"},
         "applications": {"synthetic": details["synthetic_software"], "desktop": details["desktop_software"]},
         "methodology": {
@@ -75,6 +81,7 @@ def calculate(run_id: str) -> dict[str, Any]:
             "model_calls_saved": len(details["model_calls"]), "raw_model_trace_available": details["model_trace_available"],
             "evidence_limits": details["evidence_limits"],
             "platform_fixture": read_json(directory / "evidence" / "fixture.json"),
+            "keyword_baseline": "新跑实验优先使用有效整理摘要，否则回退有效原始摘要；历史复算只统计保存的查询返回，不重新查询",
         },
         "retrieval_reference": random_reference(dataset, cases, dataset["queries"]),
         "retrieval": {name: aggregate_queries(rows) for name, rows in query_rows.items()},
@@ -230,6 +237,7 @@ def export(run_id: str) -> dict[str, Path]:
         assert_redacted(text, dataset, keep_test_titles=keep_titles)
         return text
     safe = json.loads(public(result))
+    details["diagnostics"] = result["diagnostics"]
     safe_details = json.loads(public(details))
     summary = report_dir / "summary.json"
     atomic_json(summary, safe)

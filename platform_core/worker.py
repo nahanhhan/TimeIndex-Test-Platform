@@ -191,11 +191,15 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
                     case_ids = [id_map.get(row["id"], row["id"]) for row in batch]
                     with trace.scope(phase="合成整理", batch_id=batch_id, case_ids=case_ids):
                         retagged = daemon.llm_processor.retag_cluster(batch)
+                    core_valid_results = sum(not refinement_issues(row) for row in retagged)
                     written = daemon.db_store.update_retag_records(retagged) if retagged else 0
                     batches.append({"id": batch_id, "input_ids": case_ids,
+                                    "input_record_ids": [row["id"] for row in batch],
                                     "returned_ids": [id_map.get(row["id"], row["id"]) for row in retagged],
+                                    "core_valid_result_count": core_valid_results,
                                     "model_call_ids": [call["id"] for call in trace.calls if call["context"].get("batch_id") == batch_id],
-                                    "returned_ids_meaning": "TimeIndex解析并接受的记录；完整原始返回内容见关联模型调用",
+                                    "returned_ids_meaning": "本体函数返回的记录列表，可能包括未获有效整理的原记录；有效结果数单列",
+                                    "written_meaning": "数据库更新操作数，不代表整理字段完整有效；最终有效数见报告",
                                     "written": written})
                 _write_evidence(run_id, "retag_batches.json", {"batch_size": batch_size, "origin": "TimeIndex Daemon.retag_batch_size", "batches": batches})
                 updated = {row["id"]: row for row in _records(daemon)}
@@ -278,7 +282,10 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
                                                     "relevant_ids": query["relevant_ids"], **scored})
                             continue
                         if vectors["status"] != "done":
-                            raise ValueError("整理后向量完整性检查未通过，不计算语义效果分数")
+                            queries[method].append({"id": query["id"], "query": query["text"],
+                                                    "relevant_ids": query["relevant_ids"], "status": "not_measured",
+                                                    "reason": "整理后向量完整性检查未通过，未执行语义查询"})
+                            continue
                         previous_checks = len(captures["embedding_checks"])
                         with trace.scope(phase="合成回忆", query_id=query["id"], method=method):
                             found = query_store.search_activities(query["text"], limit=5)
@@ -317,9 +324,9 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
             expected = dataset["protocol"]["time_ranges"]
             section(run_id, "retrieval_time", "done" if complete == expected else "partial" if complete else "failed" if attempted else "not_measured",
                     None if complete == expected else f"时间范围查询完成 {complete}/{expected}")
-        section(run_id, "retrieval_semantic", "not_measured" if not embeddings_ready else
+        section(run_id, "retrieval_semantic", "not_measured" if not embeddings_ready or vectors["status"] != "done" else
                 "done" if all(row["status"] == "done" for row in queries["semantic"]) else "failed",
-                "嵌入模型不可用" if not embeddings_ready else None)
+                "嵌入模型不可用" if not embeddings_ready else "检索向量无效或未核验，未执行语义查询" if vectors["status"] != "done" else None)
         section(run_id, "retrieval_baselines", "done" if corpus else "not_measured",
                 None if corpus else "没有可用的对照记录")
         return cases, queries, captures
@@ -483,7 +490,7 @@ def run(run_id: str) -> None:
                 item["status"] != "done" for item in cases) or any(
                 value.get("status") in {"failed", "partial"} for name, value in
                 read_json(directory / "manifest.json")["sections"].items()
-                if name in {"organization", "retrieval_vectors", "retrieval_semantic", "retrieval_time", "live_recording", "model_evidence"}):
+                if name in {"organization", "retrieval_vectors", "retrieval_semantic", "retrieval_time", "live_recording", "model_evidence", "fallback"}):
             final_status = "partial"
         else:
             final_status = "done"

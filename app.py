@@ -7,7 +7,7 @@ from pathlib import Path
 import streamlit as st
 
 from platform_core.bundling import build_report_zip, bundle_signature
-from platform_core.common import ROOT
+from platform_core.common import ROOT, read_json
 from platform_core.controller import cancel, start, status
 from platform_core.dataset import validate_dataset
 from platform_core.manifest import list_runs
@@ -160,6 +160,13 @@ else:
             st.rerun()
         st.json(item.get("sections", {}), expanded=False)
         report = ROOT / "runs" / run_id / "reports"
+        saved_summary = read_json(report / "summary.json", {})
+        findings = saved_summary.get("diagnostics", {}).get("findings", [])
+        if findings:
+            with st.expander("本轮诊断说明", expanded=item["status"] in {"partial", "failed"}):
+                for finding in findings:
+                    st.write(f"**{finding['title']}**")
+                    st.write(finding["description"])
         if item["status"] not in {"created", "running"}:
             try:
                 st.download_button("一键下载诊断报告（ZIP）",

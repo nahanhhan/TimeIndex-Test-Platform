@@ -42,6 +42,29 @@ def status_name(value: Any) -> str:
             "not_available": "未安装", "running": "运行中", "not_selected": "未选择"}.get(value, str(value))
 
 
+def tag_text(value: Any) -> str:
+    return ", ".join(map(str, value)) if isinstance(value, (list, tuple)) else str(value or "")
+
+
+def diagnostic_section(result: dict[str, Any]) -> str:
+    diagnostics = result.get("diagnostics", {})
+    if not diagnostics:
+        return ""
+    requests = diagnostics["model_requests"]
+    findings = ''.join(f'<article><h3>{esc(row["title"])} · {esc(row["scope"])}</h3>'
+                       f'<p>{esc(row["description"])}</p><details><summary>查看判断依据</summary>{block(row["evidence"])}</details></article>'
+                       for row in diagnostics["findings"])
+    batches = table(["批次 / 阶段", "模型原始结果数", "本体返回记录数", "数据库更新操作数", "最终有效整理数", "编号直接匹配 / 文本对照"],
+                    [[str(row["id"]) + " / " + row["scope"], row["model_response_count"], row["core_returned_count"],
+                      row["database_update_count"], f'{row["persisted_valid_count"] if row["persisted_valid_count"] is not None else "未保存"} / {row["input_count"]}',
+                      f'{row["exact_id_matches"] if row["exact_id_matches"] is not None else "未测"} / {row["text_id_matches"] if row["text_id_matches"] is not None else "未测"}'] for row in diagnostics["organization_batches"]])
+    return '<h2 id="diagnostics">本轮诊断：请求完成与结果有效分开看</h2>' + \
+        f'<p>保存接口请求 {requests["saved"]} 次，其中请求完成 {requests["completed"]} 次、调用出错 {requests["failed"]} 次。' + \
+        '这些数量不代表摘要准确或整理成功；整理是否有效以最终保存的字段为准。</p>' + batches + \
+        (findings or '<p>现有证据未触发这些故障诊断；内容质量仍需查看逐例结果。</p>') + \
+        f'<p>{esc(diagnostics["limits"])}</p>'
+
+
 def retrieval_table(values: dict[str, Any]) -> str:
     labels = {"semantic": "语义检索", "keyword": "摘要关键词检索", "title_keyword": "原始标题关键词对照", "tags": "标签检索"}
     return table(["检索方式", "已评分 / 全部题目", "首条命中率", "前五条命中率", "排名得分", "平均耗时（毫秒）", "错误 / 未测"],
@@ -56,8 +79,8 @@ def case_card(row: dict[str, Any], real: bool = False) -> str:
     windows = row.get("input", {}).get("windows", [])
     inputs = table(["输入进程", "窗口标题", "PID"], [[w.get("process_name"), w.get("title"), w.get("pid")] for w in windows])
     comparison = table(["阶段", "摘要", "标签", "主要应用 / 分组"], [
-        ["TimeIndex 初始结果", original.get("summary"), ", ".join(original.get("tags") or []), original.get("primary_app")],
-        ["TimeIndex 整理结果", refined.get("refined_summary"), ", ".join(refined.get("refined_tags") or []), refined.get("cluster_id")],
+        ["TimeIndex 初始结果", original.get("summary"), tag_text(original.get("tags")), original.get("primary_app")],
+        ["TimeIndex 整理结果", refined.get("refined_summary"), tag_text(refined.get("refined_tags")), refined.get("cluster_id")],
     ])
     links = ' '.join(f'<a href="#{esc(key)}">{esc(key)}</a>' for key in row.get("model_call_ids", []))
     evidence = {key: row.get(key) for key in ("expected", "facts_before", "facts_after", "details_before", "details_after", "recording_check", "quality_note", "input", "intent", "record", "refined", "error") if key in row}
@@ -75,7 +98,7 @@ def query_cards(values: dict[str, Any]) -> str:
             records = row.get("returned_records", [])
             results = table(["排名", "记录 / 场景", "初始摘要", "整理摘要", "标签"],
                             [[r.get("rank", index + 1), r.get("case_id") or r.get("id"), r.get("summary"), r.get("refined_summary"),
-                              ", ".join(r.get("tags") or [])] for index, r in enumerate(records)])
+                              tag_text(r.get("tags"))] for index, r in enumerate(records)])
             cards.append(f'<details><summary>{esc(method)} · {esc(row["id"])} · {esc(row.get("query"))} · 前五命中 {esc(row.get("hit_at_5"))}</summary>' +
                          block(requested) + (results if records else '<p>没有返回记录，或旧版本未保存返回记录正文。</p>') + '</details>')
     return ''.join(cards)
@@ -114,6 +137,10 @@ def render_report(result: dict[str, Any], details: dict[str, Any], metrics: list
     real_started = sum(row.get("actually_launched", False) for row in details["desktop_software"] if row.get("kind") != "blacklist_probe")
     synthetic_summary = f'合成入库 {organization["cases_done"]}/{organization["cases_total"]}；整理完成 {organization["retag_complete"]}/{organization["retag_total"]}' if organization["cases_total"] else "合成阶段未执行"
     summary = f'{synthetic_summary}；实际启动业务软件 {real_started} 次'
+    original_version = result.get("original_scoring_version")
+    replay_note = (f'<p class="notice">本轮原评分版本：{esc(original_version)}；当前分析版本：{esc(result["scoring_version"])}。'
+                   '查询按原来保存的返回结果统计，没有重新执行；新版关键词回退只影响新跑实验。</p>'
+                   if original_version and original_version != result["scoring_version"] else '')
     software = table(["应用名称", "进程", "涉及场景", "是否真的启动"],
                      [[row["application"], row["process"], ", ".join(row["case_ids"]), "否：仅构造窗口快照"] for row in details["synthetic_software"]])
     real = table(["软件 / 用途", "任务 / 文件", "状态", "启动 / 关闭（北京时间）", "启动 PID", "观察到的真实窗口"],
@@ -131,6 +158,7 @@ def render_report(result: dict[str, Any], details: dict[str, Any], metrics: list
                    ["记录完整性", "核对窗口标题、进程、PID、时间是否原样入库"],
                    ["摘要和整理质量", "核对可观察的主题与章节，展示整理前后原文；缺失整理结果按未命中计算"],
                    ["标签与分组", "接受不同的合理标签用词；固定词表分数仅供诊断；只比较同一整理批次的分组"],
+                   ["摘要关键词对照", "新跑实验使用有效整理摘要，否则回退有效原始摘要；历史复算只统计保存的查询结果"],
                    ["模型调用证据", f"保存 {len(details['model_calls'])} 次接口调用；完整输入、原始回复和解析结果分别展示"]]
     calls = []
     for call in details["model_calls"]:
@@ -139,7 +167,7 @@ def render_report(result: dict[str, Any], details: dict[str, Any], metrics: list
         outputs = ''.join('<h4>模型原文</h4><pre>' + esc(choice.get("message", {}).get("content")) + '</pre>' +
                           ('<h4>reasoning_content 原文</h4><pre>' + esc(choice["message"]["reasoning_content"]) + '</pre>'
                            if choice.get("message", {}).get("reasoning_content") else '') for choice in choices)
-        caption = f'{call["id"]} · {call["context"].get("phase", "未注明阶段")} · {"文本模型" if call["operation"] == "chat" else "向量模型"} · {status_name(call["status"])}'
+        caption = f'{call["id"]} · {call["context"].get("phase", "未注明阶段")} · {"文本模型" if call["operation"] == "chat" else "向量模型"} · {"请求已完成" if call["status"] == "done" else status_name(call["status"])}'
         metadata = {"context": call["context"], "started_at": call.get("started_at"), "finished_at": call.get("finished_at"),
                     "elapsed_ms": call.get("elapsed_ms"), "requested_model": call["request"].get("model"),
                     "returned_model": response.get("model"), "usage": response.get("usage"),
@@ -156,7 +184,9 @@ def render_report(result: dict[str, Any], details: dict[str, Any], metrics: list
     style = 'body{font-family:system-ui,"Microsoft YaHei",sans-serif;margin:0;background:#f3f6fa;color:#172b3a}main{max-width:1240px;margin:auto;padding:28px}h1,h2{color:#104f6a}h2{margin-top:36px}nav{display:flex;gap:18px;flex-wrap:wrap;padding:14px;background:#fff;border-radius:8px}a{color:#126286}article,details{background:#fff;border:1px solid #d7e1e9;border-radius:8px;padding:14px;margin:12px 0}details details{background:#f8fafc}summary{cursor:pointer;font-weight:600;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f7f9fc;padding:14px;border-radius:6px;font-size:13px;line-height:1.6}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}th,td{border-bottom:1px solid #d7e1e9;text-align:left;vertical-align:top;padding:11px;min-width:85px;overflow-wrap:anywhere}th{background:#e9f1f7}.notice{border-left:4px solid #c98925;padding:12px;background:#fff7e8}p{line-height:1.7}.lead{font-size:19px}code{overflow-wrap:anywhere}@media print{details{break-inside:avoid}nav{display:none}}'
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TimeIndex 逐例实验报告</title><style>{style}</style><main>
 <h1>TimeIndex 逐例实验报告</h1><p>运行：{esc(result['run_id'])} · 模式：{esc(result['mode'])} · 评分规则：{esc(result['scoring_version'])}</p><p class="lead">{esc(summary)}</p>
-<nav><a href="#method">测试方式</a><a href="#software">软件清单</a><a href="#cases">逐例结果</a><a href="#calls">模型原始输出</a><a href="#queries">回忆测试</a><a href="#privacy">隐私与资源</a><a href="#metrics">全部指标</a></nav>
+{replay_note}
+<nav><a href="#diagnostics">本轮诊断</a><a href="#method">测试方式</a><a href="#software">软件清单</a><a href="#cases">逐例结果</a><a href="#calls">模型原始输出</a><a href="#queries">回忆测试</a><a href="#privacy">隐私与资源</a><a href="#metrics">全部指标</a></nav>
+{diagnostic_section(result)}
 {paper_section(result)}
 <h2 id="method">这轮到底测试了什么</h2>{no_real}{table(['项目','测试方式与边界'], method_rows)}<p>完成状态表示步骤完成，不表示内容正确；自动评分只检查列出的事实线索，完整质量请结合逐例原文复核。</p><details><summary>测试方式原始信息与证据缺失说明</summary>{block(result['methodology'])}</details>
 <details><summary>完整实验条件与源码校验值</summary>{block(result['conditions'])}</details>
