@@ -1,0 +1,3426 @@
+{
+  "version": "paper-1.0",
+  "synthetic": true,
+  "seed": 20261004,
+  "evaluation_profile": "paper",
+  "cases": [
+    {
+      "id": "P01-01",
+      "title": "Python 列表推导式 第1节 TEST-PAPER-SECRET-P01-01 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 列表推导式",
+          "列表推导式",
+          "列表推导",
+          "list comprehension"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式",
+        "列表推导式",
+        "列表推导",
+        "list comprehension"
+      ],
+      "group": "PG01",
+      "canary": "TEST-PAPER-SECRET-P01-01"
+    },
+    {
+      "id": "P01-02",
+      "title": "Python 列表推导式笔记 第2节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 列表推导式",
+          "列表推导式",
+          "列表推导",
+          "list comprehension"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式",
+        "列表推导式",
+        "列表推导",
+        "list comprehension"
+      ],
+      "group": "PG01",
+      "canary": null
+    },
+    {
+      "id": "P01-03",
+      "title": "第3节 Python 列表推导式资料 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 列表推导式",
+          "列表推导式",
+          "列表推导",
+          "list comprehension"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式",
+        "列表推导式",
+        "列表推导",
+        "list comprehension"
+      ],
+      "group": "PG01",
+      "canary": null
+    },
+    {
+      "id": "P01-04",
+      "title": "Python 列表推导式 第4节记录 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 列表推导式",
+          "列表推导式",
+          "列表推导",
+          "list comprehension"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式",
+        "列表推导式",
+        "列表推导",
+        "list comprehension"
+      ],
+      "group": "PG01",
+      "canary": null
+    },
+    {
+      "id": "P01-05",
+      "title": "Python 列表推导式复习 第5节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 列表推导式",
+          "列表推导式",
+          "列表推导",
+          "list comprehension"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式",
+        "列表推导式",
+        "列表推导",
+        "list comprehension"
+      ],
+      "group": "PG01",
+      "canary": null
+    },
+    {
+      "id": "P02-01",
+      "title": "Git 分支合并 第1节 TEST-PAPER-SECRET-P02-01 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Git 分支合并",
+          "分支合并",
+          "合并分支",
+          "merge"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并",
+        "分支合并",
+        "合并分支",
+        "merge"
+      ],
+      "group": "PG02",
+      "canary": "TEST-PAPER-SECRET-P02-01"
+    },
+    {
+      "id": "P02-02",
+      "title": "Git 分支合并笔记 第2节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Git 分支合并",
+          "分支合并",
+          "合并分支",
+          "merge"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并",
+        "分支合并",
+        "合并分支",
+        "merge"
+      ],
+      "group": "PG02",
+      "canary": null
+    },
+    {
+      "id": "P02-03",
+      "title": "第3节 Git 分支合并资料 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Git 分支合并",
+          "分支合并",
+          "合并分支",
+          "merge"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并",
+        "分支合并",
+        "合并分支",
+        "merge"
+      ],
+      "group": "PG02",
+      "canary": null
+    },
+    {
+      "id": "P02-04",
+      "title": "Git 分支合并 第4节记录 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Git 分支合并",
+          "分支合并",
+          "合并分支",
+          "merge"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并",
+        "分支合并",
+        "合并分支",
+        "merge"
+      ],
+      "group": "PG02",
+      "canary": null
+    },
+    {
+      "id": "P02-05",
+      "title": "Git 分支合并复习 第5节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "Git 分支合并",
+          "分支合并",
+          "合并分支",
+          "merge"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并",
+        "分支合并",
+        "合并分支",
+        "merge"
+      ],
+      "group": "PG02",
+      "canary": null
+    },
+    {
+      "id": "P03-01",
+      "title": "事务隔离级别 第1节 TEST-PAPER-SECRET-P03-01 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "事务隔离级别",
+          "事务隔离",
+          "隔离级别",
+          "transaction isolation"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别",
+        "事务隔离",
+        "隔离级别",
+        "transaction isolation"
+      ],
+      "group": "PG03",
+      "canary": "TEST-PAPER-SECRET-P03-01"
+    },
+    {
+      "id": "P03-02",
+      "title": "事务隔离级别笔记 第2节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "事务隔离级别",
+          "事务隔离",
+          "隔离级别",
+          "transaction isolation"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别",
+        "事务隔离",
+        "隔离级别",
+        "transaction isolation"
+      ],
+      "group": "PG03",
+      "canary": null
+    },
+    {
+      "id": "P03-03",
+      "title": "第3节 事务隔离级别资料 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "事务隔离级别",
+          "事务隔离",
+          "隔离级别",
+          "transaction isolation"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别",
+        "事务隔离",
+        "隔离级别",
+        "transaction isolation"
+      ],
+      "group": "PG03",
+      "canary": null
+    },
+    {
+      "id": "P03-04",
+      "title": "事务隔离级别 第4节记录 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "事务隔离级别",
+          "事务隔离",
+          "隔离级别",
+          "transaction isolation"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别",
+        "事务隔离",
+        "隔离级别",
+        "transaction isolation"
+      ],
+      "group": "PG03",
+      "canary": null
+    },
+    {
+      "id": "P03-05",
+      "title": "事务隔离级别复习 第5节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "事务隔离级别",
+          "事务隔离",
+          "隔离级别",
+          "transaction isolation"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别",
+        "事务隔离",
+        "隔离级别",
+        "transaction isolation"
+      ],
+      "group": "PG03",
+      "canary": null
+    },
+    {
+      "id": "P04-01",
+      "title": "HTTP 缓存机制 第1节 TEST-PAPER-SECRET-P04-01 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "HTTP 缓存机制",
+          "HTTP缓存",
+          "缓存机制",
+          "http cache"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制",
+        "HTTP缓存",
+        "缓存机制",
+        "http cache"
+      ],
+      "group": "PG04",
+      "canary": "TEST-PAPER-SECRET-P04-01"
+    },
+    {
+      "id": "P04-02",
+      "title": "HTTP 缓存机制笔记 第2节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "HTTP 缓存机制",
+          "HTTP缓存",
+          "缓存机制",
+          "http cache"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制",
+        "HTTP缓存",
+        "缓存机制",
+        "http cache"
+      ],
+      "group": "PG04",
+      "canary": null
+    },
+    {
+      "id": "P04-03",
+      "title": "第3节 HTTP 缓存机制资料 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "HTTP 缓存机制",
+          "HTTP缓存",
+          "缓存机制",
+          "http cache"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制",
+        "HTTP缓存",
+        "缓存机制",
+        "http cache"
+      ],
+      "group": "PG04",
+      "canary": null
+    },
+    {
+      "id": "P04-04",
+      "title": "HTTP 缓存机制 第4节记录 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "HTTP 缓存机制",
+          "HTTP缓存",
+          "缓存机制",
+          "http cache"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制",
+        "HTTP缓存",
+        "缓存机制",
+        "http cache"
+      ],
+      "group": "PG04",
+      "canary": null
+    },
+    {
+      "id": "P04-05",
+      "title": "HTTP 缓存机制复习 第5节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "HTTP 缓存机制",
+          "HTTP缓存",
+          "缓存机制",
+          "http cache"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制",
+        "HTTP缓存",
+        "缓存机制",
+        "http cache"
+      ],
+      "group": "PG04",
+      "canary": null
+    },
+    {
+      "id": "P05-01",
+      "title": "实验方法说明 第1节 TEST-PAPER-SECRET-P05-01 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验方法说明",
+          "实验方法",
+          "方法说明"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明",
+        "实验方法",
+        "方法说明"
+      ],
+      "group": "PG05",
+      "canary": "TEST-PAPER-SECRET-P05-01"
+    },
+    {
+      "id": "P05-02",
+      "title": "实验方法说明笔记 第2节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验方法说明",
+          "实验方法",
+          "方法说明"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明",
+        "实验方法",
+        "方法说明"
+      ],
+      "group": "PG05",
+      "canary": null
+    },
+    {
+      "id": "P05-03",
+      "title": "第3节 实验方法说明资料 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验方法说明",
+          "实验方法",
+          "方法说明"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明",
+        "实验方法",
+        "方法说明"
+      ],
+      "group": "PG05",
+      "canary": null
+    },
+    {
+      "id": "P05-04",
+      "title": "实验方法说明 第4节记录 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验方法说明",
+          "实验方法",
+          "方法说明"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明",
+        "实验方法",
+        "方法说明"
+      ],
+      "group": "PG05",
+      "canary": null
+    },
+    {
+      "id": "P05-05",
+      "title": "实验方法说明复习 第5节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验方法说明",
+          "实验方法",
+          "方法说明"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明",
+        "实验方法",
+        "方法说明"
+      ],
+      "group": "PG05",
+      "canary": null
+    },
+    {
+      "id": "P06-01",
+      "title": "文献综述草稿 第1节 TEST-PAPER-SECRET-P06-01 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "文献综述草稿",
+          "文献综述",
+          "相关研究",
+          "literature review"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿",
+        "文献综述",
+        "相关研究",
+        "literature review"
+      ],
+      "group": "PG06",
+      "canary": "TEST-PAPER-SECRET-P06-01"
+    },
+    {
+      "id": "P06-02",
+      "title": "文献综述草稿笔记 第2节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "文献综述草稿",
+          "文献综述",
+          "相关研究",
+          "literature review"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿",
+        "文献综述",
+        "相关研究",
+        "literature review"
+      ],
+      "group": "PG06",
+      "canary": null
+    },
+    {
+      "id": "P06-03",
+      "title": "第3节 文献综述草稿资料 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "文献综述草稿",
+          "文献综述",
+          "相关研究",
+          "literature review"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿",
+        "文献综述",
+        "相关研究",
+        "literature review"
+      ],
+      "group": "PG06",
+      "canary": null
+    },
+    {
+      "id": "P06-04",
+      "title": "文献综述草稿 第4节记录 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "文献综述草稿",
+          "文献综述",
+          "相关研究",
+          "literature review"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿",
+        "文献综述",
+        "相关研究",
+        "literature review"
+      ],
+      "group": "PG06",
+      "canary": null
+    },
+    {
+      "id": "P06-05",
+      "title": "文献综述草稿复习 第5节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "文献综述草稿",
+          "文献综述",
+          "相关研究",
+          "literature review"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿",
+        "文献综述",
+        "相关研究",
+        "literature review"
+      ],
+      "group": "PG06",
+      "canary": null
+    },
+    {
+      "id": "P07-01",
+      "title": "开发进度例会 第1节 TEST-PAPER-SECRET-P07-01 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "开发进度例会",
+          "开发进度",
+          "进度例会"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会",
+        "开发进度",
+        "进度例会"
+      ],
+      "group": "PG07",
+      "canary": "TEST-PAPER-SECRET-P07-01"
+    },
+    {
+      "id": "P07-02",
+      "title": "开发进度例会笔记 第2节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "开发进度例会",
+          "开发进度",
+          "进度例会"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会",
+        "开发进度",
+        "进度例会"
+      ],
+      "group": "PG07",
+      "canary": null
+    },
+    {
+      "id": "P07-03",
+      "title": "第3节 开发进度例会资料 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "开发进度例会",
+          "开发进度",
+          "进度例会"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会",
+        "开发进度",
+        "进度例会"
+      ],
+      "group": "PG07",
+      "canary": null
+    },
+    {
+      "id": "P07-04",
+      "title": "开发进度例会 第4节记录 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "开发进度例会",
+          "开发进度",
+          "进度例会"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会",
+        "开发进度",
+        "进度例会"
+      ],
+      "group": "PG07",
+      "canary": null
+    },
+    {
+      "id": "P07-05",
+      "title": "开发进度例会复习 第5节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "开发进度例会",
+          "开发进度",
+          "进度例会"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会",
+        "开发进度",
+        "进度例会"
+      ],
+      "group": "PG07",
+      "canary": null
+    },
+    {
+      "id": "P08-01",
+      "title": "课程项目讨论 第1节 TEST-PAPER-SECRET-P08-01 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "课程项目讨论",
+          "课程项目",
+          "项目讨论"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论",
+        "课程项目",
+        "项目讨论"
+      ],
+      "group": "PG08",
+      "canary": "TEST-PAPER-SECRET-P08-01"
+    },
+    {
+      "id": "P08-02",
+      "title": "课程项目讨论笔记 第2节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "课程项目讨论",
+          "课程项目",
+          "项目讨论"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论",
+        "课程项目",
+        "项目讨论"
+      ],
+      "group": "PG08",
+      "canary": null
+    },
+    {
+      "id": "P08-03",
+      "title": "第3节 课程项目讨论资料 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "课程项目讨论",
+          "课程项目",
+          "项目讨论"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论",
+        "课程项目",
+        "项目讨论"
+      ],
+      "group": "PG08",
+      "canary": null
+    },
+    {
+      "id": "P08-04",
+      "title": "课程项目讨论 第4节记录 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "课程项目讨论",
+          "课程项目",
+          "项目讨论"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论",
+        "课程项目",
+        "项目讨论"
+      ],
+      "group": "PG08",
+      "canary": null
+    },
+    {
+      "id": "P08-05",
+      "title": "课程项目讨论复习 第5节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "课程项目讨论",
+          "课程项目",
+          "项目讨论"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论",
+        "课程项目",
+        "项目讨论"
+      ],
+      "group": "PG08",
+      "canary": null
+    },
+    {
+      "id": "P09-01",
+      "title": "项目预算分析 第1节 TEST-PAPER-SECRET-P09-01 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目预算分析",
+          "项目预算",
+          "预算分析"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析",
+        "项目预算",
+        "预算分析"
+      ],
+      "group": "PG09",
+      "canary": "TEST-PAPER-SECRET-P09-01"
+    },
+    {
+      "id": "P09-02",
+      "title": "项目预算分析笔记 第2节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目预算分析",
+          "项目预算",
+          "预算分析"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析",
+        "项目预算",
+        "预算分析"
+      ],
+      "group": "PG09",
+      "canary": null
+    },
+    {
+      "id": "P09-03",
+      "title": "第3节 项目预算分析资料 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目预算分析",
+          "项目预算",
+          "预算分析"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析",
+        "项目预算",
+        "预算分析"
+      ],
+      "group": "PG09",
+      "canary": null
+    },
+    {
+      "id": "P09-04",
+      "title": "项目预算分析 第4节记录 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目预算分析",
+          "项目预算",
+          "预算分析"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析",
+        "项目预算",
+        "预算分析"
+      ],
+      "group": "PG09",
+      "canary": null
+    },
+    {
+      "id": "P09-05",
+      "title": "项目预算分析复习 第5节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目预算分析",
+          "项目预算",
+          "预算分析"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析",
+        "项目预算",
+        "预算分析"
+      ],
+      "group": "PG09",
+      "canary": null
+    },
+    {
+      "id": "P10-01",
+      "title": "实验数据统计 第1节 TEST-PAPER-SECRET-P10-01 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验数据统计",
+          "实验数据",
+          "数据统计"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计",
+        "实验数据",
+        "数据统计"
+      ],
+      "group": "PG10",
+      "canary": "TEST-PAPER-SECRET-P10-01"
+    },
+    {
+      "id": "P10-02",
+      "title": "实验数据统计笔记 第2节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验数据统计",
+          "实验数据",
+          "数据统计"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计",
+        "实验数据",
+        "数据统计"
+      ],
+      "group": "PG10",
+      "canary": null
+    },
+    {
+      "id": "P10-03",
+      "title": "第3节 实验数据统计资料 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验数据统计",
+          "实验数据",
+          "数据统计"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计",
+        "实验数据",
+        "数据统计"
+      ],
+      "group": "PG10",
+      "canary": null
+    },
+    {
+      "id": "P10-04",
+      "title": "实验数据统计 第4节记录 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验数据统计",
+          "实验数据",
+          "数据统计"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计",
+        "实验数据",
+        "数据统计"
+      ],
+      "group": "PG10",
+      "canary": null
+    },
+    {
+      "id": "P10-05",
+      "title": "实验数据统计复习 第5节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验数据统计",
+          "实验数据",
+          "数据统计"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计",
+        "实验数据",
+        "数据统计"
+      ],
+      "group": "PG10",
+      "canary": null
+    },
+    {
+      "id": "P11-01",
+      "title": "移动界面原型 第1节 TEST-PAPER-SECRET-P11-01 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "移动界面原型",
+          "界面原型",
+          "移动界面",
+          "prototype"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型",
+        "界面原型",
+        "移动界面",
+        "prototype"
+      ],
+      "group": "PG11",
+      "canary": "TEST-PAPER-SECRET-P11-01"
+    },
+    {
+      "id": "P11-02",
+      "title": "移动界面原型笔记 第2节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "移动界面原型",
+          "界面原型",
+          "移动界面",
+          "prototype"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型",
+        "界面原型",
+        "移动界面",
+        "prototype"
+      ],
+      "group": "PG11",
+      "canary": null
+    },
+    {
+      "id": "P11-03",
+      "title": "第3节 移动界面原型资料 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "移动界面原型",
+          "界面原型",
+          "移动界面",
+          "prototype"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型",
+        "界面原型",
+        "移动界面",
+        "prototype"
+      ],
+      "group": "PG11",
+      "canary": null
+    },
+    {
+      "id": "P11-04",
+      "title": "移动界面原型 第4节记录 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "移动界面原型",
+          "界面原型",
+          "移动界面",
+          "prototype"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型",
+        "界面原型",
+        "移动界面",
+        "prototype"
+      ],
+      "group": "PG11",
+      "canary": null
+    },
+    {
+      "id": "P11-05",
+      "title": "移动界面原型复习 第5节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "移动界面原型",
+          "界面原型",
+          "移动界面",
+          "prototype"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型",
+        "界面原型",
+        "移动界面",
+        "prototype"
+      ],
+      "group": "PG11",
+      "canary": null
+    },
+    {
+      "id": "P12-01",
+      "title": "活动海报排版 第1节 TEST-PAPER-SECRET-P12-01 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "活动海报排版",
+          "活动海报",
+          "海报排版",
+          "poster"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版",
+        "活动海报",
+        "海报排版",
+        "poster"
+      ],
+      "group": "PG12",
+      "canary": "TEST-PAPER-SECRET-P12-01"
+    },
+    {
+      "id": "P12-02",
+      "title": "活动海报排版笔记 第2节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "活动海报排版",
+          "活动海报",
+          "海报排版",
+          "poster"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版",
+        "活动海报",
+        "海报排版",
+        "poster"
+      ],
+      "group": "PG12",
+      "canary": null
+    },
+    {
+      "id": "P12-03",
+      "title": "第3节 活动海报排版资料 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "活动海报排版",
+          "活动海报",
+          "海报排版",
+          "poster"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版",
+        "活动海报",
+        "海报排版",
+        "poster"
+      ],
+      "group": "PG12",
+      "canary": null
+    },
+    {
+      "id": "P12-04",
+      "title": "活动海报排版 第4节记录 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "活动海报排版",
+          "活动海报",
+          "海报排版",
+          "poster"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版",
+        "活动海报",
+        "海报排版",
+        "poster"
+      ],
+      "group": "PG12",
+      "canary": null
+    },
+    {
+      "id": "P12-05",
+      "title": "活动海报排版复习 第5节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "只依据窗口标题、进程事件与时间，不评估文档正文或实际编辑动作",
+      "event_type": "created",
+      "facts": [
+        [
+          "活动海报排版",
+          "活动海报",
+          "海报排版",
+          "poster"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tags": [
+        "design"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版",
+        "活动海报",
+        "海报排版",
+        "poster"
+      ],
+      "group": "PG12",
+      "canary": null
+    }
+  ],
+  "queries": [
+    {
+      "id": "PT01",
+      "task": "topic",
+      "text": "找出以前涉及Python 列表推导式的电脑活动",
+      "keyword": "Python 列表推导式",
+      "keyword_terms": [
+        "Python 列表推导式"
+      ],
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式"
+      ],
+      "relevant_ids": [
+        "P01-01",
+        "P01-02",
+        "P01-03",
+        "P01-04",
+        "P01-05"
+      ]
+    },
+    {
+      "id": "PS01-01",
+      "task": "specific",
+      "text": "查找Python 列表推导式第1节对应的记录",
+      "keyword": "Python 列表推导式",
+      "keyword_terms": [
+        "Python 列表推导式",
+        "第1节"
+      ],
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式"
+      ],
+      "relevant_ids": [
+        "P01-01"
+      ]
+    },
+    {
+      "id": "PS01-04",
+      "task": "specific",
+      "text": "查找Python 列表推导式第4节对应的记录",
+      "keyword": "Python 列表推导式",
+      "keyword_terms": [
+        "Python 列表推导式",
+        "第4节"
+      ],
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Python 列表推导式"
+      ],
+      "relevant_ids": [
+        "P01-04"
+      ]
+    },
+    {
+      "id": "PT02",
+      "task": "topic",
+      "text": "找出以前涉及Git 分支合并的电脑活动",
+      "keyword": "Git 分支合并",
+      "keyword_terms": [
+        "Git 分支合并"
+      ],
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并"
+      ],
+      "relevant_ids": [
+        "P02-01",
+        "P02-02",
+        "P02-03",
+        "P02-04",
+        "P02-05"
+      ]
+    },
+    {
+      "id": "PS02-03",
+      "task": "specific",
+      "text": "查找Git 分支合并第3节对应的记录",
+      "keyword": "Git 分支合并",
+      "keyword_terms": [
+        "Git 分支合并",
+        "第3节"
+      ],
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe",
+        "Git 分支合并"
+      ],
+      "relevant_ids": [
+        "P02-03"
+      ]
+    },
+    {
+      "id": "PT03",
+      "task": "topic",
+      "text": "找出以前涉及事务隔离级别的电脑活动",
+      "keyword": "事务隔离级别",
+      "keyword_terms": [
+        "事务隔离级别"
+      ],
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别"
+      ],
+      "relevant_ids": [
+        "P03-01",
+        "P03-02",
+        "P03-03",
+        "P03-04",
+        "P03-05"
+      ]
+    },
+    {
+      "id": "PS03-01",
+      "task": "specific",
+      "text": "查找事务隔离级别第1节对应的记录",
+      "keyword": "事务隔离级别",
+      "keyword_terms": [
+        "事务隔离级别",
+        "第1节"
+      ],
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别"
+      ],
+      "relevant_ids": [
+        "P03-01"
+      ]
+    },
+    {
+      "id": "PS03-04",
+      "task": "specific",
+      "text": "查找事务隔离级别第4节对应的记录",
+      "keyword": "事务隔离级别",
+      "keyword_terms": [
+        "事务隔离级别",
+        "第4节"
+      ],
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "事务隔离级别"
+      ],
+      "relevant_ids": [
+        "P03-04"
+      ]
+    },
+    {
+      "id": "PT04",
+      "task": "topic",
+      "text": "找出以前涉及HTTP 缓存机制的电脑活动",
+      "keyword": "HTTP 缓存机制",
+      "keyword_terms": [
+        "HTTP 缓存机制"
+      ],
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制"
+      ],
+      "relevant_ids": [
+        "P04-01",
+        "P04-02",
+        "P04-03",
+        "P04-04",
+        "P04-05"
+      ]
+    },
+    {
+      "id": "PS04-03",
+      "task": "specific",
+      "text": "查找HTTP 缓存机制第3节对应的记录",
+      "keyword": "HTTP 缓存机制",
+      "keyword_terms": [
+        "HTTP 缓存机制",
+        "第3节"
+      ],
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料",
+        "HTTP 缓存机制"
+      ],
+      "relevant_ids": [
+        "P04-03"
+      ]
+    },
+    {
+      "id": "PT05",
+      "task": "topic",
+      "text": "找出以前涉及实验方法说明的电脑活动",
+      "keyword": "实验方法说明",
+      "keyword_terms": [
+        "实验方法说明"
+      ],
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明"
+      ],
+      "relevant_ids": [
+        "P05-01",
+        "P05-02",
+        "P05-03",
+        "P05-04",
+        "P05-05"
+      ]
+    },
+    {
+      "id": "PS05-01",
+      "task": "specific",
+      "text": "查找实验方法说明第1节对应的记录",
+      "keyword": "实验方法说明",
+      "keyword_terms": [
+        "实验方法说明",
+        "第1节"
+      ],
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明"
+      ],
+      "relevant_ids": [
+        "P05-01"
+      ]
+    },
+    {
+      "id": "PS05-04",
+      "task": "specific",
+      "text": "查找实验方法说明第4节对应的记录",
+      "keyword": "实验方法说明",
+      "keyword_terms": [
+        "实验方法说明",
+        "第4节"
+      ],
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "实验方法说明"
+      ],
+      "relevant_ids": [
+        "P05-04"
+      ]
+    },
+    {
+      "id": "PT06",
+      "task": "topic",
+      "text": "找出以前涉及文献综述草稿的电脑活动",
+      "keyword": "文献综述草稿",
+      "keyword_terms": [
+        "文献综述草稿"
+      ],
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿"
+      ],
+      "relevant_ids": [
+        "P06-01",
+        "P06-02",
+        "P06-03",
+        "P06-04",
+        "P06-05"
+      ]
+    },
+    {
+      "id": "PS06-03",
+      "task": "specific",
+      "text": "查找文献综述草稿第3节对应的记录",
+      "keyword": "文献综述草稿",
+      "keyword_terms": [
+        "文献综述草稿",
+        "第3节"
+      ],
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document",
+        "文献综述草稿"
+      ],
+      "relevant_ids": [
+        "P06-03"
+      ]
+    },
+    {
+      "id": "PT07",
+      "task": "topic",
+      "text": "找出以前涉及开发进度例会的电脑活动",
+      "keyword": "开发进度例会",
+      "keyword_terms": [
+        "开发进度例会"
+      ],
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会"
+      ],
+      "relevant_ids": [
+        "P07-01",
+        "P07-02",
+        "P07-03",
+        "P07-04",
+        "P07-05"
+      ]
+    },
+    {
+      "id": "PS07-01",
+      "task": "specific",
+      "text": "查找开发进度例会第1节对应的记录",
+      "keyword": "开发进度例会",
+      "keyword_terms": [
+        "开发进度例会",
+        "第1节"
+      ],
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会"
+      ],
+      "relevant_ids": [
+        "P07-01"
+      ]
+    },
+    {
+      "id": "PS07-04",
+      "task": "specific",
+      "text": "查找开发进度例会第4节对应的记录",
+      "keyword": "开发进度例会",
+      "keyword_terms": [
+        "开发进度例会",
+        "第4节"
+      ],
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "开发进度例会"
+      ],
+      "relevant_ids": [
+        "P07-04"
+      ]
+    },
+    {
+      "id": "PT08",
+      "task": "topic",
+      "text": "找出以前涉及课程项目讨论的电脑活动",
+      "keyword": "课程项目讨论",
+      "keyword_terms": [
+        "课程项目讨论"
+      ],
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论"
+      ],
+      "relevant_ids": [
+        "P08-01",
+        "P08-02",
+        "P08-03",
+        "P08-04",
+        "P08-05"
+      ]
+    },
+    {
+      "id": "PS08-03",
+      "task": "specific",
+      "text": "查找课程项目讨论第3节对应的记录",
+      "keyword": "课程项目讨论",
+      "keyword_terms": [
+        "课程项目讨论",
+        "第3节"
+      ],
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook",
+        "课程项目讨论"
+      ],
+      "relevant_ids": [
+        "P08-03"
+      ]
+    },
+    {
+      "id": "PT09",
+      "task": "topic",
+      "text": "找出以前涉及项目预算分析的电脑活动",
+      "keyword": "项目预算分析",
+      "keyword_terms": [
+        "项目预算分析"
+      ],
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析"
+      ],
+      "relevant_ids": [
+        "P09-01",
+        "P09-02",
+        "P09-03",
+        "P09-04",
+        "P09-05"
+      ]
+    },
+    {
+      "id": "PS09-01",
+      "task": "specific",
+      "text": "查找项目预算分析第1节对应的记录",
+      "keyword": "项目预算分析",
+      "keyword_terms": [
+        "项目预算分析",
+        "第1节"
+      ],
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析"
+      ],
+      "relevant_ids": [
+        "P09-01"
+      ]
+    },
+    {
+      "id": "PS09-04",
+      "task": "specific",
+      "text": "查找项目预算分析第4节对应的记录",
+      "keyword": "项目预算分析",
+      "keyword_terms": [
+        "项目预算分析",
+        "第4节"
+      ],
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "项目预算分析"
+      ],
+      "relevant_ids": [
+        "P09-04"
+      ]
+    },
+    {
+      "id": "PT10",
+      "task": "topic",
+      "text": "找出以前涉及实验数据统计的电脑活动",
+      "keyword": "实验数据统计",
+      "keyword_terms": [
+        "实验数据统计"
+      ],
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计"
+      ],
+      "relevant_ids": [
+        "P10-01",
+        "P10-02",
+        "P10-03",
+        "P10-04",
+        "P10-05"
+      ]
+    },
+    {
+      "id": "PS10-03",
+      "task": "specific",
+      "text": "查找实验数据统计第3节对应的记录",
+      "keyword": "实验数据统计",
+      "keyword_terms": [
+        "实验数据统计",
+        "第3节"
+      ],
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet",
+        "实验数据统计"
+      ],
+      "relevant_ids": [
+        "P10-03"
+      ]
+    },
+    {
+      "id": "PT11",
+      "task": "topic",
+      "text": "找出以前涉及移动界面原型的电脑活动",
+      "keyword": "移动界面原型",
+      "keyword_terms": [
+        "移动界面原型"
+      ],
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型"
+      ],
+      "relevant_ids": [
+        "P11-01",
+        "P11-02",
+        "P11-03",
+        "P11-04",
+        "P11-05"
+      ]
+    },
+    {
+      "id": "PS11-01",
+      "task": "specific",
+      "text": "查找移动界面原型第1节对应的记录",
+      "keyword": "移动界面原型",
+      "keyword_terms": [
+        "移动界面原型",
+        "第1节"
+      ],
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型"
+      ],
+      "relevant_ids": [
+        "P11-01"
+      ]
+    },
+    {
+      "id": "PS11-04",
+      "task": "specific",
+      "text": "查找移动界面原型第4节对应的记录",
+      "keyword": "移动界面原型",
+      "keyword_terms": [
+        "移动界面原型",
+        "第4节"
+      ],
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "移动界面原型"
+      ],
+      "relevant_ids": [
+        "P11-04"
+      ]
+    },
+    {
+      "id": "PT12",
+      "task": "topic",
+      "text": "找出以前涉及活动海报排版的电脑活动",
+      "keyword": "活动海报排版",
+      "keyword_terms": [
+        "活动海报排版"
+      ],
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版"
+      ],
+      "relevant_ids": [
+        "P12-01",
+        "P12-02",
+        "P12-03",
+        "P12-04",
+        "P12-05"
+      ]
+    },
+    {
+      "id": "PS12-03",
+      "task": "specific",
+      "text": "查找活动海报排版第3节对应的记录",
+      "keyword": "活动海报排版",
+      "keyword_terms": [
+        "活动海报排版",
+        "第3节"
+      ],
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui",
+        "活动海报排版"
+      ],
+      "relevant_ids": [
+        "P12-03"
+      ]
+    }
+  ],
+  "protocol": {
+    "id": "timeindex-paper-1.0",
+    "development_dataset": "default.json@2.0",
+    "categories": 6,
+    "topics": 12,
+    "cases": 60,
+    "topic_queries": 12,
+    "specific_queries": 18,
+    "time_ranges": 6,
+    "recommended_repetitions": 3,
+    "primary": [
+      "recording",
+      "organization",
+      "topic_retrieval",
+      "time_retrieval",
+      "privacy"
+    ],
+    "diagnostic": [
+      "specific_retrieval",
+      "chapter_retention",
+      "tag_f1",
+      "clustering"
+    ],
+    "scope": "受控合成输入的真实核心处理；真实采集另在专用桌面验证，自动闲时触发未测"
+  }
+}

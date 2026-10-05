@@ -1,0 +1,2891 @@
+{
+  "version": "2.0",
+  "synthetic": true,
+  "seed": 20260927,
+  "cases": [
+    {
+      "id": "S01-01",
+      "title": "Python 函数 第1节 TEST-SECRET-S01-01 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": "TEST-SECRET-S01-01"
+    },
+    {
+      "id": "S01-02",
+      "title": "Python 函数 第2节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-03",
+      "title": "Python 函数 第3节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-04",
+      "title": "Python 函数 第4节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-05",
+      "title": "Python 函数 第5节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-06",
+      "title": "Python 函数 第6节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-07",
+      "title": "Python 函数 第7节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-08",
+      "title": "Python 函数 第8节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-09",
+      "title": "Python 函数 第9节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S01-10",
+      "title": "Python 函数 第10节 - Visual Studio Code",
+      "process": "code.exe",
+      "application": "Visual Studio Code",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "Python 函数",
+          "Python函数"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Code",
+        "VSCode",
+        "VS Code",
+        "Visual Studio Code",
+        "code.exe"
+      ],
+      "tag_aliases": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "tags": [
+        "coding"
+      ],
+      "group": "G01",
+      "canary": null
+    },
+    {
+      "id": "S02-01",
+      "title": "数据库索引 第1节 TEST-SECRET-S02-01 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": "TEST-SECRET-S02-01"
+    },
+    {
+      "id": "S02-02",
+      "title": "数据库索引 第2节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-03",
+      "title": "数据库索引 第3节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-04",
+      "title": "数据库索引 第4节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-05",
+      "title": "数据库索引 第5节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-06",
+      "title": "数据库索引 第6节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-07",
+      "title": "数据库索引 第7节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-08",
+      "title": "数据库索引 第8节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-09",
+      "title": "数据库索引 第9节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S02-10",
+      "title": "数据库索引 第10节 - Microsoft Edge",
+      "process": "msedge.exe",
+      "application": "Microsoft Edge",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据库索引",
+          "数据库索引"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Edge",
+        "Microsoft Edge",
+        "msedge.exe",
+        "msedge.exe"
+      ],
+      "tag_aliases": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "group": "G02",
+      "canary": null
+    },
+    {
+      "id": "S03-01",
+      "title": "实验报告 第1节 TEST-SECRET-S03-01 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": "TEST-SECRET-S03-01"
+    },
+    {
+      "id": "S03-02",
+      "title": "实验报告 第2节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-03",
+      "title": "实验报告 第3节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-04",
+      "title": "实验报告 第4节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-05",
+      "title": "实验报告 第5节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-06",
+      "title": "实验报告 第6节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-07",
+      "title": "实验报告 第7节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-08",
+      "title": "实验报告 第8节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-09",
+      "title": "实验报告 第9节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S03-10",
+      "title": "实验报告 第10节 - Microsoft Word",
+      "process": "winword.exe",
+      "application": "Microsoft Word",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "实验报告",
+          "实验报告"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Word",
+        "Microsoft Word",
+        "winword.exe",
+        "winword.exe"
+      ],
+      "tag_aliases": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "tags": [
+        "writing"
+      ],
+      "group": "G03",
+      "canary": null
+    },
+    {
+      "id": "S04-01",
+      "title": "项目会议 第1节 TEST-SECRET-S04-01 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": "TEST-SECRET-S04-01"
+    },
+    {
+      "id": "S04-02",
+      "title": "项目会议 第2节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-03",
+      "title": "项目会议 第3节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-04",
+      "title": "项目会议 第4节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-05",
+      "title": "项目会议 第5节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-06",
+      "title": "项目会议 第6节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-07",
+      "title": "项目会议 第7节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-08",
+      "title": "项目会议 第8节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-09",
+      "title": "项目会议 第9节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S04-10",
+      "title": "项目会议 第10节 - Outlook",
+      "process": "outlook.exe",
+      "application": "Outlook",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "项目会议",
+          "项目会议"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Outlook",
+        "outlook.exe",
+        "outlook.exe"
+      ],
+      "tag_aliases": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "tags": [
+        "meeting"
+      ],
+      "group": "G04",
+      "canary": null
+    },
+    {
+      "id": "S05-01",
+      "title": "数据图表 第1节 TEST-SECRET-S05-01 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": "TEST-SECRET-S05-01"
+    },
+    {
+      "id": "S05-02",
+      "title": "数据图表 第2节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-03",
+      "title": "数据图表 第3节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-04",
+      "title": "数据图表 第4节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-05",
+      "title": "数据图表 第5节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-06",
+      "title": "数据图表 第6节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-07",
+      "title": "数据图表 第7节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-08",
+      "title": "数据图表 第8节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-09",
+      "title": "数据图表 第9节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S05-10",
+      "title": "数据图表 第10节 - Microsoft Excel",
+      "process": "excel.exe",
+      "application": "Microsoft Excel",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "数据图表",
+          "数据图表"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Excel",
+        "Microsoft Excel",
+        "excel.exe",
+        "excel.exe"
+      ],
+      "tag_aliases": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "tags": [
+        "analysis"
+      ],
+      "group": "G05",
+      "canary": null
+    },
+    {
+      "id": "S06-01",
+      "title": "界面设计 第1节 TEST-SECRET-S06-01 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第1节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": "TEST-SECRET-S06-01"
+    },
+    {
+      "id": "S06-02",
+      "title": "界面设计 第2节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第2节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-03",
+      "title": "界面设计 第3节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第3节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-04",
+      "title": "界面设计 第4节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第4节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-05",
+      "title": "界面设计 第5节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第5节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-06",
+      "title": "界面设计 第6节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第6节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-07",
+      "title": "界面设计 第7节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第7节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-08",
+      "title": "界面设计 第8节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第8节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-09",
+      "title": "界面设计 第9节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第9节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    },
+    {
+      "id": "S06-10",
+      "title": "界面设计 第10节 - Chrome - Figma",
+      "process": "chrome.exe",
+      "application": "Chrome - Figma",
+      "input_kind": "synthetic_snapshot",
+      "actually_launched": false,
+      "observable_scope": "仅进程事件与窗口标题；不包含文档正文、键盘操作或网页内容",
+      "event_type": "created",
+      "facts": [
+        [
+          "界面设计",
+          "界面设计"
+        ]
+      ],
+      "required_details": [
+        "第10节"
+      ],
+      "app_aliases": [
+        "Chrome",
+        "Figma",
+        "chrome.exe",
+        "chrome.exe"
+      ],
+      "tag_aliases": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "tags": [
+        "design"
+      ],
+      "group": "G06",
+      "canary": null
+    }
+  ],
+  "queries": [
+    {
+      "id": "Q01-01",
+      "text": "查找Python 函数第1节的活动",
+      "keyword": "Python 函数",
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "relevant_ids": [
+        "S01-01"
+      ]
+    },
+    {
+      "id": "Q01-02",
+      "text": "我什么时候处理过Python 函数第3节？",
+      "keyword": "Python 函数",
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "relevant_ids": [
+        "S01-03"
+      ]
+    },
+    {
+      "id": "Q01-03",
+      "text": "回忆Python 函数第5节对应的窗口",
+      "keyword": "Python 函数",
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "relevant_ids": [
+        "S01-05"
+      ]
+    },
+    {
+      "id": "Q01-04",
+      "text": "Python 函数第7节用过什么应用？",
+      "keyword": "Python 函数",
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "relevant_ids": [
+        "S01-07"
+      ]
+    },
+    {
+      "id": "Q01-05",
+      "text": "找出关于Python 函数第9节的记录",
+      "keyword": "Python 函数",
+      "tags": [
+        "coding",
+        "code",
+        "programming",
+        "编程",
+        "代码",
+        "Python",
+        "python",
+        "code.exe"
+      ],
+      "relevant_ids": [
+        "S01-09"
+      ]
+    },
+    {
+      "id": "Q02-01",
+      "text": "查找数据库索引第1节的活动",
+      "keyword": "数据库索引",
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "relevant_ids": [
+        "S02-01"
+      ]
+    },
+    {
+      "id": "Q02-02",
+      "text": "我什么时候处理过数据库索引第3节？",
+      "keyword": "数据库索引",
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "relevant_ids": [
+        "S02-03"
+      ]
+    },
+    {
+      "id": "Q02-03",
+      "text": "回忆数据库索引第5节对应的窗口",
+      "keyword": "数据库索引",
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "relevant_ids": [
+        "S02-05"
+      ]
+    },
+    {
+      "id": "Q02-04",
+      "text": "数据库索引第7节用过什么应用？",
+      "keyword": "数据库索引",
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "relevant_ids": [
+        "S02-07"
+      ]
+    },
+    {
+      "id": "Q02-05",
+      "text": "找出关于数据库索引第9节的记录",
+      "keyword": "数据库索引",
+      "tags": [
+        "reading",
+        "browse",
+        "browsing",
+        "阅读",
+        "数据库",
+        "索引",
+        "database",
+        "技术资料"
+      ],
+      "relevant_ids": [
+        "S02-09"
+      ]
+    },
+    {
+      "id": "Q03-01",
+      "text": "查找实验报告第1节的活动",
+      "keyword": "实验报告",
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "relevant_ids": [
+        "S03-01"
+      ]
+    },
+    {
+      "id": "Q03-02",
+      "text": "我什么时候处理过实验报告第3节？",
+      "keyword": "实验报告",
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "relevant_ids": [
+        "S03-03"
+      ]
+    },
+    {
+      "id": "Q03-03",
+      "text": "回忆实验报告第5节对应的窗口",
+      "keyword": "实验报告",
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "relevant_ids": [
+        "S03-05"
+      ]
+    },
+    {
+      "id": "Q03-04",
+      "text": "实验报告第7节用过什么应用？",
+      "keyword": "实验报告",
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "relevant_ids": [
+        "S03-07"
+      ]
+    },
+    {
+      "id": "Q03-05",
+      "text": "找出关于实验报告第9节的记录",
+      "keyword": "实验报告",
+      "tags": [
+        "writing",
+        "文稿",
+        "报告",
+        "写作",
+        "Word",
+        "word",
+        "document"
+      ],
+      "relevant_ids": [
+        "S03-09"
+      ]
+    },
+    {
+      "id": "Q04-01",
+      "text": "查找项目会议第1节的活动",
+      "keyword": "项目会议",
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "relevant_ids": [
+        "S04-01"
+      ]
+    },
+    {
+      "id": "Q04-02",
+      "text": "我什么时候处理过项目会议第3节？",
+      "keyword": "项目会议",
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "relevant_ids": [
+        "S04-03"
+      ]
+    },
+    {
+      "id": "Q04-03",
+      "text": "回忆项目会议第5节对应的窗口",
+      "keyword": "项目会议",
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "relevant_ids": [
+        "S04-05"
+      ]
+    },
+    {
+      "id": "Q04-04",
+      "text": "项目会议第7节用过什么应用？",
+      "keyword": "项目会议",
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "relevant_ids": [
+        "S04-07"
+      ]
+    },
+    {
+      "id": "Q04-05",
+      "text": "找出关于项目会议第9节的记录",
+      "keyword": "项目会议",
+      "tags": [
+        "meeting",
+        "会议",
+        "calendar",
+        "日历",
+        "Outlook",
+        "outlook"
+      ],
+      "relevant_ids": [
+        "S04-09"
+      ]
+    },
+    {
+      "id": "Q05-01",
+      "text": "查找数据图表第1节的活动",
+      "keyword": "数据图表",
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "relevant_ids": [
+        "S05-01"
+      ]
+    },
+    {
+      "id": "Q05-02",
+      "text": "我什么时候处理过数据图表第3节？",
+      "keyword": "数据图表",
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "relevant_ids": [
+        "S05-03"
+      ]
+    },
+    {
+      "id": "Q05-03",
+      "text": "回忆数据图表第5节对应的窗口",
+      "keyword": "数据图表",
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "relevant_ids": [
+        "S05-05"
+      ]
+    },
+    {
+      "id": "Q05-04",
+      "text": "数据图表第7节用过什么应用？",
+      "keyword": "数据图表",
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "relevant_ids": [
+        "S05-07"
+      ]
+    },
+    {
+      "id": "Q05-05",
+      "text": "找出关于数据图表第9节的记录",
+      "keyword": "数据图表",
+      "tags": [
+        "analysis",
+        "分析",
+        "数据",
+        "图表",
+        "Excel",
+        "excel",
+        "spreadsheet"
+      ],
+      "relevant_ids": [
+        "S05-09"
+      ]
+    },
+    {
+      "id": "Q06-01",
+      "text": "查找界面设计第1节的活动",
+      "keyword": "界面设计",
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "relevant_ids": [
+        "S06-01"
+      ]
+    },
+    {
+      "id": "Q06-02",
+      "text": "我什么时候处理过界面设计第3节？",
+      "keyword": "界面设计",
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "relevant_ids": [
+        "S06-03"
+      ]
+    },
+    {
+      "id": "Q06-03",
+      "text": "回忆界面设计第5节对应的窗口",
+      "keyword": "界面设计",
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "relevant_ids": [
+        "S06-05"
+      ]
+    },
+    {
+      "id": "Q06-04",
+      "text": "界面设计第7节用过什么应用？",
+      "keyword": "界面设计",
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "relevant_ids": [
+        "S06-07"
+      ]
+    },
+    {
+      "id": "Q06-05",
+      "text": "找出关于界面设计第9节的记录",
+      "keyword": "界面设计",
+      "tags": [
+        "design",
+        "设计",
+        "界面",
+        "Figma",
+        "figma",
+        "UI",
+        "ui"
+      ],
+      "relevant_ids": [
+        "S06-09"
+      ]
+    }
+  ],
+  "quick_case_ids": [
+    "S01-01",
+    "S01-02",
+    "S02-01",
+    "S02-02",
+    "S03-01",
+    "S04-01",
+    "S05-01",
+    "S06-01"
+  ],
+  "quick_query_ids": [
+    "Q01-01",
+    "Q02-01",
+    "Q03-01",
+    "Q05-01"
+  ],
+  "measurement_scope": "合成快照用于检查真实 TimeIndex 推理、入库、整理与检索；不证明实际软件采集效果"
+}

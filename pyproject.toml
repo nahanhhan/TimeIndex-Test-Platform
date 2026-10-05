@@ -1,0 +1,16 @@
+[project]
+name = "timeindex-test-platform"
+version = "0.1.0"
+description = "Local, reproducible evaluation platform for TimeIndex"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit>=1.48,<2",
+    "timeindex",
+]
+
+[tool.uv.sources]
+timeindex = { path = ".." }
+
+[tool.uv]
+package = false
+
