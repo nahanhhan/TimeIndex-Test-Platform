@@ -11,7 +11,6 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parent
 RUNS = ROOT / "runs"
 
 
@@ -48,7 +47,12 @@ def digest_file(path: Path) -> str:
 
 
 def digest_source(source: Path | None = None) -> str:
-    source = source or REPO / "src" / "TimeIndex"
+    if source is None:
+        from .project import resolve_project_dir
+
+        source = resolve_project_dir() / "src" / "TimeIndex"
+    if not source.is_dir():
+        raise ValueError(f"TimeIndex 源码目录不存在：{source}")
     digest = hashlib.sha256()
     for path in sorted(source.rglob("*")):
         if path.is_file() and path.suffix in {".py", ".yaml"}:

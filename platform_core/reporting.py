@@ -56,7 +56,7 @@ def calculate(run_id: str) -> dict[str, Any]:
         "run_id": run_id, "generated_at": now(), "mode": manifest["mode"],
         "scoring_version": SCORING_VERSION, "analysis_platform_sha256": digest_platform(),
         "conditions": {key: manifest.get(key) for key in (
-            "source_sha256", "platform_sha256", "dataset_sha256", "dataset_version", "seed", "host", "endpoint",
+            "source_sha256", "platform_sha256", "timeindex_project", "dataset_sha256", "dataset_version", "seed", "host", "endpoint",
             "model", "embedding_model", "dedicated_vm", "allow_remote_model", "allow_no_model", "resources")},
         "original_scoring_version": manifest.get("scoring_version"),
         "sections": sections, "organization": organization, "vector_integrity": vectors,

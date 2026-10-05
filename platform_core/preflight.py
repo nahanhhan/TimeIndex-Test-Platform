@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 import psutil
 
 from .privacy import is_loopback, is_private_lan, normalize_endpoint
+from .project import project_status
 
 
 def discover_model_pid(endpoint: str) -> int | None:
@@ -27,7 +28,7 @@ def discover_model_pid(endpoint: str) -> int | None:
 
 
 def check(endpoint: str, *, dedicated_vm: bool = False, allow_remote_model: bool = False,
-          api_key: str | None = None) -> dict[str, Any]:
+          api_key: str | None = None, timeindex_project: str | None = None) -> dict[str, Any]:
     endpoint = normalize_endpoint(endpoint)
     modules = {name: importlib.util.find_spec(name) is not None for name in
                ("lancedb", "openai", "psutil", "yaml", "wmi", "win32gui", "streamlit")}
@@ -56,6 +57,7 @@ def check(endpoint: str, *, dedicated_vm: bool = False, allow_remote_model: bool
                   "非本机地址须勾选局域网模型选项，并填写 10.x、172.16–31.x、192.168.x 或 fc00:: 地址")
     windows = platform.system() == "Windows"
     return {"python": sys.version.split()[0], "python_ok": sys.version_info >= (3, 12),
+            "timeindex_project": project_status(timeindex_project),
             "windows": windows, "dependencies": modules,
             "model_endpoint": endpoint, "loopback": local, "private_lan": private_lan,
             "endpoint_allowed": allowed, "model_reachable": reachable,

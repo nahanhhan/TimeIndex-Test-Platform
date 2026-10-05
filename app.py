@@ -12,6 +12,7 @@ from platform_core.controller import cancel, start, status
 from platform_core.dataset import validate_dataset
 from platform_core.manifest import list_runs
 from platform_core.preflight import check
+from platform_core.project import project_status, save_project_dir
 
 
 @st.cache_data(show_spinner=False, max_entries=3)
@@ -22,6 +23,22 @@ def _report_zip(run_id: str, signature: tuple[tuple[str, int, int], ...]) -> byt
 st.set_page_config(page_title="TimeIndex 测试平台", page_icon="🧪", layout="wide")
 st.title("TimeIndex 自动化测试平台")
 st.caption("批量测试记录、整理、回忆和隐私暴露；硬件资源测量可选。所有结果保存在本机。")
+
+detected_project = project_status()
+timeindex_project = st.text_input(
+    "TimeIndex 本体项目文件夹", value=detected_project["path"] or "",
+    help="选择包含 pyproject.toml 和 src/TimeIndex 的项目根目录。支持与测试平台放在不同文件夹；留空自动查找。")
+selected_project = project_status(timeindex_project or None)
+if selected_project["ready"]:
+    st.caption(f"本轮使用的 TimeIndex 项目：{selected_project['path']}")
+else:
+    st.warning(selected_project["reason"])
+if st.button("检查并记住本体位置"):
+    try:
+        saved_project = save_project_dir(selected_project["path"] or timeindex_project)
+        st.success(f"已记住 TimeIndex 本体位置：{saved_project}")
+    except (OSError, ValueError) as error:
+        st.error(str(error))
 
 left, right = st.columns([2, 1])
 with left:
@@ -59,7 +76,12 @@ with st.expander("环境检查", expanded=False):
     if st.button("检查当前环境"):
         try:
             diagnosis = check(endpoint, dedicated_vm=dedicated_vm,
-                              allow_remote_model=allow_remote_model, api_key=api_key or None)
+                              allow_remote_model=allow_remote_model, api_key=api_key or None,
+                              timeindex_project=timeindex_project or None)
+            if diagnosis["timeindex_project"]["ready"]:
+                st.success(f"已找到 TimeIndex 本体：{diagnosis['timeindex_project']['path']}")
+            else:
+                st.error(diagnosis["timeindex_project"]["reason"])
             if diagnosis["model_reachable"]:
                 st.success(f"已连接模型接口：{diagnosis['model_endpoint']}")
                 if diagnosis["model_ids"]:
@@ -89,7 +111,8 @@ if st.button("开始批量实验", type="primary"):
         manifest = start(mode, dataset_path, resources=resources, dedicated_vm=dedicated_vm,
                          endpoint=endpoint, model=model, embedding_model=embedding_model,
                          model_pid=model_pid, allow_remote_model=allow_remote_model,
-                         allow_no_model=allow_no_model, api_key=api_key or None)
+                         allow_no_model=allow_no_model, api_key=api_key or None,
+                         timeindex_project=timeindex_project or None)
         st.success(f"已启动实验：{manifest['run_id']}")
     except Exception as error:
         st.error(str(error))

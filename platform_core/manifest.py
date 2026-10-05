@@ -4,9 +4,10 @@ import secrets
 from pathlib import Path
 from typing import Any
 
-from .common import REPO, RUNS, atomic_json, digest_platform, digest_source, host_info, now, read_json
+from .common import RUNS, atomic_json, digest_platform, digest_source, host_info, now, read_json
 from .dataset import DEFAULT_DATASET, PAPER_DATASET, load_dataset, select
 from .privacy import normalize_endpoint
+from .project import resolve_project_dir
 from .scoring import SCORING_VERSION
 
 
@@ -20,7 +21,7 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
                dedicated_vm: bool = False, endpoint: str = "http://127.0.0.1:1234/v1",
                model: str = "gemma-4-e4b", embedding_model: str = "text-embedding-embeddinggemma-300m",
                model_pid: int | None = None, allow_remote_model: bool = False,
-               allow_no_model: bool = False) -> dict[str, Any]:
+               allow_no_model: bool = False, timeindex_project: str | Path | None = None) -> dict[str, Any]:
     if mode == "custom" and dataset_path is None:
         raise ValueError("自定义模式需要数据集文件")
     if mode == "desktop" and not dedicated_vm:
@@ -41,6 +42,8 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
         raise ValueError("局域网模型只接受明确标为 synthetic 的虚构数据集")
     if dedicated_vm and mode in {"full", "desktop", "paper"}:
         selected["privacy_markers"] = list(set(selected.get("privacy_markers", [])) | {"TEST-SECRET-DESKTOP"})
+    project = resolve_project_dir(timeindex_project)
+    source_sha256 = digest_source(project / "src" / "TimeIndex")
     run_id = now()[:19].replace(":", "-") + "-" + secrets.token_hex(4)
     directory = run_path(run_id)
     directory.mkdir(parents=True, exist_ok=False)
@@ -60,7 +63,8 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
         "seed": data.get("seed"),
         "selected_cases": len(selected["cases"]),
         "selected_queries": len(selected["queries"]),
-        "source_sha256": digest_source(),
+        "timeindex_project": str(project),
+        "source_sha256": source_sha256,
         "platform_sha256": digest_platform(),
         "host": host_info(),
         "resources": bool(resources),

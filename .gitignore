@@ -3,6 +3,7 @@
 .uv-cache/
 runs/
 .uploads/
+.timeindex-project.json
 dist/
 launch.log
 __pycache__/

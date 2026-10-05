@@ -1340,9 +1340,9 @@ wheels = [
 ]
 
 [[package]]
-name = "timeindex"
+name = "timeindex-test-platform"
 version = "0.1.0"
-source = { directory = "../" }
+source = { virtual = "." }
 dependencies = [
     { name = "lancedb" },
     { name = "openai" },
@@ -1351,6 +1351,7 @@ dependencies = [
     { name = "pywin32" },
     { name = "pyyaml" },
     { name = "ruamel-yaml" },
+    { name = "streamlit" },
     { name = "typer" },
     { name = "wmi" },
 ]
@@ -1364,23 +1365,9 @@ requires-dist = [
     { name = "pywin32", specifier = ">=311" },
     { name = "pyyaml", specifier = ">=6.0.1" },
     { name = "ruamel-yaml", specifier = ">=0.19.1" },
+    { name = "streamlit", specifier = ">=1.48,<2" },
     { name = "typer", specifier = ">=0.24.2" },
     { name = "wmi", specifier = ">=1.5.1" },
-]
-
-[[package]]
-name = "timeindex-test-platform"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "streamlit" },
-    { name = "timeindex" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "streamlit", specifier = ">=1.48,<2" },
-    { name = "timeindex", directory = "../" },
 ]
 
 [[package]]

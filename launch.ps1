@@ -1,4 +1,4 @@
-param([switch]$CheckOnly)
+param([switch]$CheckOnly, [string]$TimeIndexPath)
 
 $ErrorActionPreference = 'Stop'
 $logPath = Join-Path $PSScriptRoot 'launch.log'
@@ -42,9 +42,8 @@ try {
         throw 'uv was not found. Reopen Windows after installing uv, then run start.cmd again.'
     }
     if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'uv.lock') -PathType Leaf) -or
-        -not (Test-Path -LiteralPath (Join-Path $PSScriptRoot '..\pyproject.toml') -PathType Leaf) -or
-        -not (Test-Path -LiteralPath (Join-Path $PSScriptRoot '..\src\TimeIndex\config.yaml') -PathType Leaf)) {
-        throw 'Project files are incomplete. Extract the entire ZIP, including the TimeIndex parent folder.'
+        -not (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'pyproject.toml') -PathType Leaf)) {
+        throw 'Test platform files are incomplete. Extract the entire test platform folder.'
     }
 
     $env:UV_CACHE_DIR = Join-Path $PSScriptRoot '.uv-cache'
@@ -52,13 +51,37 @@ try {
     Write-StartupMessage 'Installing or checking the locked environment...'
     $ErrorActionPreference = 'Continue'
     try {
-        & $uvPath sync --frozen --python 3.12 --reinstall-package timeindex 2>&1 | Write-CommandOutput
+        & $uvPath sync --frozen --python 3.12 2>&1 | Write-CommandOutput
         $syncExit = $LASTEXITCODE
     } finally {
         $ErrorActionPreference = 'Stop'
     }
     if ($syncExit -ne 0) {
         throw "uv sync failed with exit code $syncExit"
+    }
+
+    [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+    $locationArguments = @('run', '--no-sync', 'python', '-X', 'utf8', '-m', 'platform_core.project', '--save')
+    if ($TimeIndexPath) {
+        $locationArguments += @('--timeindex-project', $TimeIndexPath)
+    }
+    $ErrorActionPreference = 'Continue'
+    try {
+        $locationOutput = @(& $uvPath @locationArguments 2>&1)
+        $locationExit = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = 'Stop'
+    }
+    if ($locationExit -eq 0) {
+        $resolvedProject = [string]($locationOutput | Select-Object -Last 1)
+        $env:TIMEINDEX_PROJECT_DIR = $resolvedProject
+        Write-StartupMessage "TimeIndex project: $resolvedProject"
+    } else {
+        $locationOutput | Write-CommandOutput
+        if ($CheckOnly -or $TimeIndexPath) {
+            throw 'TimeIndex project lookup failed. Pass -TimeIndexPath with the project root folder.'
+        }
+        Write-StartupMessage 'TimeIndex project was not selected. Enter its folder in the web page before running experiments.'
     }
     if ($CheckOnly) {
         Write-StartupMessage 'Environment check passed.'

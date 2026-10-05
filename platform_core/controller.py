@@ -47,7 +47,8 @@ def start(mode: str, dataset_path: Path | None = None, **settings: Any) -> dict[
         _lock(run_id)
         paths = prepare(run_id, manifest, api_key=api_key)
         preflight = check(manifest["endpoint"], dedicated_vm=manifest["dedicated_vm"],
-                          allow_remote_model=manifest["allow_remote_model"], api_key=api_key)
+                          allow_remote_model=manifest["allow_remote_model"], api_key=api_key,
+                          timeindex_project=manifest["timeindex_project"])
         atomic_json(paths["run"] / "evidence" / "preflight.json", preflight)
         if mode == "desktop" and not preflight["desktop_ready"]:
             raise RuntimeError("真实软件实验需要 Windows、WMI 和窗口采集组件；环境检查未通过，未启动实验")

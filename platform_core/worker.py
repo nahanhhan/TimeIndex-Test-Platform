@@ -342,7 +342,8 @@ def run(run_id: str) -> None:
     try:
         imported = verify_import(run_id)
         _write_evidence(run_id, "import_paths.json", imported)
-        preflight = read_json(directory / "evidence" / "preflight.json") or check(manifest["endpoint"])
+        preflight = read_json(directory / "evidence" / "preflight.json") or check(
+            manifest["endpoint"], timeindex_project=manifest.get("timeindex_project"))
         dataset = read_json(directory / "dataset.json")
         if manifest["resources"]:
             sampler = ResourceSampler(os.getpid(), manifest.get("model_pid"), runtime_paths(run_id)["database"],

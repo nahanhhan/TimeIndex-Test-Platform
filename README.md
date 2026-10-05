@@ -6,7 +6,16 @@
 
 本仓库只发布测试平台，包含平台代码、虚构样本、自动验收脚本、[论文实验方案](paper_experiment.md)、[平台计划](plan.md)及 `openspec/` 中的设计和实验规格。TimeIndex 本体源码、真实实验记录、数据库、本地模型、环境缓存及联合发布 ZIP 不在本仓库中。
 
-平台需要另行准备 TimeIndex 本体。当前依赖和启动脚本要求平台放在本体源码目录的 `test_platform/` 子目录中：
+平台需要另行准备 TimeIndex 本体。**本体与测试平台可以放在不同文件夹，无需上下级关系。** 平台会查找并核验本体项目根目录，在每轮实验中复制所选源码；不会改动本体源码或使用其日常数据库。
+
+例如下面的分开放置方式可以使用：
+
+```text
+C:/Users/user/Desktop/TimeIndex/     # TimeIndex 本体，含 pyproject.toml 和 src/TimeIndex/
+D:/Projects/TimeIndex-Test-Platform/ # 本测试平台
+```
+
+仍支持原来的联合发布包布局：
 
 ```text
 TimeIndex/
@@ -18,15 +27,36 @@ TimeIndex/
     └── paper_experiment.md
 ```
 
-在已经准备好 TimeIndex 源码、且尚无 `test_platform/` 子目录的位置执行：
+在任意希望保存测试平台的位置执行：
 
 ```powershell
-git clone https://github.com/nahanhhan/TimeIndex-Test-Platform.git test_platform
-cd test_platform
+git clone https://github.com/nahanhhan/TimeIndex-Test-Platform.git
+cd TimeIndex-Test-Platform
 .\start.cmd
 ```
 
-先安装下文所需的 `uv`，再启动平台。TimeIndex 的版本应与平台调用的核心接口兼容，每轮实验会记录本体及平台的源码校验值。下方历史 ZIP 升级说明和 `package.ps1` 针对包含外部本体的联合发布包；该脚本需要父目录的本体源码，其输出位于被忽略的 `dist/`。克隆本仓库不会取得这些本体文件或联合发布包。
+先安装下文所需的 `uv`，再启动平台。TimeIndex 的版本应与平台调用的核心接口兼容，每轮实验会记录选中的本体绝对路径及本体、平台的源码校验值。下方历史 ZIP 升级说明和 `package.ps1` 针对包含外部本体的联合发布包；打包脚本也使用所选本体目录，其输出位于被忽略的 `dist/`。克隆本仓库不会取得本体文件或联合发布包。
+
+### 本体位置的自动检测与手动指定
+
+启动时优先使用 `-TimeIndexPath` 指定的目录，其次使用 `TIMEINDEX_PROJECT_DIR` 环境变量、已记住的位置和原布局中的上级目录；仍未找到时，检查平台附近的文件夹及当前用户的桌面。自动搜索最多向下两层、检查 600 个目录，跳过环境缓存、实验目录及目录链接，不扫描整个硬盘。发现多个候选时要求明确选择，不随意使用其中一份。
+
+项目根目录必须包含名称为 `timeindex` 的 `pyproject.toml`，以及 `src/TimeIndex` 下的配置、采集、模型处理与存储文件。检测过程不导入本体、不启动采集、不创建本体数据库。目录不完整时给出缺少的文件。
+
+如果本体在另一个位置，可直接指定，例如：
+
+```powershell
+.\start.cmd -TimeIndexPath "C:\Users\user\Desktop\TimeIndex"
+```
+
+也可以直接启动网页，在“TimeIndex 本体项目文件夹”中填写该路径，再点击“检查并记住本体位置”。找不到本体或有多个候选时，网页仍可打开，但开始实验前必须选定有效目录。位置保存在本机 `.timeindex-project.json`，不会提交到 Git 或进入诊断 ZIP。换电脑后失效的已保存位置会重新查找；显式填写的错误路径不会偷偷换成其他本体。
+
+命令行实验增加 `--timeindex-project "C:\Users\user\Desktop\TimeIndex"`；`doctor` 同样接受该参数。只查看或记住位置可运行：
+
+```powershell
+uv run --no-sync python -m platform_core.cli locate
+uv run --no-sync python -m platform_core.cli locate --timeindex-project "C:\Users\user\Desktop\TimeIndex" --save
+```
 
 ## 2026-10-04：论文实验入口
 
@@ -62,12 +92,12 @@ cd test_platform
 
 每轮会保存 `evidence/vector_integrity.json` 和 `evidence/retag_batches.json`，记录整理前后向量检查与批次完成情况。向量缺失、清零或改变时，不计算语义质量分数。旧实验可以用 `replay` 按新规则重算，并核验保存的数据库；原始逐例证据不会被改写。重算不能恢复旧模型丢掉的事实或被清零的向量，验证修复效果需要新跑一轮快速检查。
 
-模型失联或嵌入服务缺失时仍保存原始活动，缺失向量以空值保存并跳过语义检索；故障记录不混入正常质量样本。启动会更新本地安装的 TimeIndex 包，确保覆盖源码后旧的安装缓存不会继续生效。
+模型失联或嵌入服务缺失时仍保存原始活动，缺失向量以空值保存并跳过语义检索；故障记录不混入正常质量样本。每轮实验直接从已选择的本体目录复制源码，不复用旧的 TimeIndex 安装缓存。
 
 ## 换一台新电脑运行
 
-1. 在旧电脑的 `TimeIndex/test_platform` 目录运行 `.\package.ps1`。它会在 `dist/` 下生成 `TimeIndex-test-platform-日期时间.zip`，只装入必需的项目源码、平台脚本、样本和依赖锁文件，并校验 ZIP 中每个文件。把这个 ZIP 传到新电脑，解压后得到 `TimeIndex/` 文件夹。压缩包不包含 `.venv/`、Python 下载、依赖缓存、旧实验 `runs/`、旧数据库或论文材料；**新电脑首次安装依赖需要联网**。模型服务和模型文件也不在包内。
-2. 若使用独立测试平台仓库，按上方“独立仓库的范围与安装”另行准备本体，再将平台克隆到其 `test_platform/` 子目录。若使用联合发布 ZIP，则已经包含所需的本体与平台相对位置；这两种安装来源要在实验记录中注明。
+1. 在旧电脑的测试平台目录运行 `.\package.ps1`，必要时增加 `-TimeIndexPath "本体项目根目录"`。它会在 `dist/` 下生成 `TimeIndex-test-platform-日期时间.zip`，只装入必需的项目源码、平台脚本、样本和依赖锁文件，并校验 ZIP 中每个文件。把这个 ZIP 传到新电脑，解压后得到 `TimeIndex/` 文件夹。压缩包不包含 `.venv/`、Python 下载、依赖缓存、已保存的机器路径、旧实验 `runs/`、旧数据库或论文材料；**新电脑首次安装依赖需要联网**。模型服务和模型文件也不在包内。
+2. 若使用独立测试平台仓库，按上方“独立仓库的范围与安装”另行准备本体，两个项目可以分开放置；启动后核对本体位置。若使用联合发布 ZIP，则已包含本体与平台；这两种安装来源要在实验记录中注明。
 3. 在新电脑的 Windows 上安装 `uv`（可参照 https://docs.astral.sh/uv/getting-started/installation/），重新打开 PowerShell，用 `uv --version` 确认命令可用。启动脚本会按锁文件安装依赖，并在需要时取得 Python 3.12。
 4. 在新电脑上解压整个 ZIP，进入 `TimeIndex/test_platform` 文件夹，**双击 `start.cmd`**。它会按包内 `uv.lock` 指定的版本安装依赖，然后启动网页；浏览器访问 `http://127.0.0.1:8501`。若启动失败，窗口会停住，并在同一文件夹生成 `launch.log`，可据此排查。先点“环境检查”，再运行“快速检查”。模型接口不可达时，普通实验会直接报错；若只想检查无模型的降级流程，须显式勾选“仅检查平台，不运行模型质量测试”。
 5. 若 LM Studio 与测试平台在**同一台电脑**，填写本机模型接口，例如 `http://127.0.0.1:1234/v1`。若分别在**两台电脑**，请在运行 LM Studio 的电脑上开启 Developer 页的 **Serve on Local Network**，记下其局域网 IP；在测试电脑填 `http://<LM Studio 电脑的局域网 IP>:1234/v1`，并勾选“允许连接另一台电脑的局域网模型（仅虚构样本）”。`127.0.0.1` 永远指当前运行平台的电脑，不能用来访问另一台电脑；平台会自动给只填到端口的地址补上 `/v1`。LM Studio 网络设置参考 https://lmstudio.ai/docs/developer/core/server/serve-on-network/ 。

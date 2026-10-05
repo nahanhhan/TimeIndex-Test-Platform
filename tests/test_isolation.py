@@ -7,14 +7,15 @@ import sys
 import unittest
 from pathlib import Path
 
-from platform_core.common import REPO, ROOT, digest_source
+from platform_core.common import ROOT, digest_source
+from platform_core.project import resolve_project_dir
 from platform_core.dataset import DEFAULT_DATASET
 from platform_core.isolation import cleanup, prepare, preserve_database
 from platform_core.manifest import create_run
 
 
 def database_fingerprint() -> list[tuple[str, int, int]]:
-    database = REPO / "src" / "TimeIndex" / ".lancedb"
+    database = resolve_project_dir() / "src" / "TimeIndex" / ".lancedb"
     if not database.exists():
         return []
     return [(str(path.relative_to(database)), path.stat().st_size, path.stat().st_mtime_ns)

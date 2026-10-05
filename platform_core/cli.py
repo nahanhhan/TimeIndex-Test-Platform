@@ -12,6 +12,7 @@ from .dataset import build_default, validate_dataset
 from .isolation import cleanup
 from .manifest import list_runs
 from .preflight import check
+from .project import resolve_project_dir, save_project_dir
 
 
 def main() -> None:
@@ -20,9 +21,14 @@ def main() -> None:
     doctor = commands.add_parser("doctor", help="检查当前环境")
     doctor.add_argument("--endpoint", default="http://127.0.0.1:1234/v1")
     doctor.add_argument("--allow-lan-model", action="store_true")
+    doctor.add_argument("--timeindex-project", type=Path, help="TimeIndex 本体项目根目录；留空自动查找")
+    locate = commands.add_parser("locate", help="查找或记住 TimeIndex 本体项目位置")
+    locate.add_argument("--timeindex-project", type=Path)
+    locate.add_argument("--save", action="store_true")
     run = commands.add_parser("run", help="启动实验")
     run.add_argument("--mode", choices=("quick", "full", "custom", "desktop", "paper"), default="quick")
     run.add_argument("--dataset", type=Path)
+    run.add_argument("--timeindex-project", type=Path, help="TimeIndex 本体项目根目录；留空自动查找")
     run.add_argument("--resources", action="store_true")
     run.add_argument("--dedicated-vm", "--dedicated-desktop", dest="dedicated_vm", action="store_true",
                      help="专用测试电脑或虚拟机桌面；完整模式自动运行实际软件")
@@ -47,13 +53,20 @@ def main() -> None:
     args = parser.parse_args()
     api_key = os.environ.get("TIMEINDEX_TEST_MODEL_API_KEY")
     if args.command == "doctor":
-        result = check(args.endpoint, allow_remote_model=args.allow_lan_model, api_key=api_key)
+        result = check(args.endpoint, allow_remote_model=args.allow_lan_model, api_key=api_key,
+                       timeindex_project=args.timeindex_project)
+    elif args.command == "locate":
+        project = resolve_project_dir(args.timeindex_project)
+        if args.save:
+            save_project_dir(project)
+        result = {"timeindex_project": str(project), "saved": args.save}
     elif args.command == "run":
         result = controller.start(args.mode, args.dataset, resources=args.resources,
                                   dedicated_vm=args.dedicated_vm, endpoint=args.endpoint,
                                   model=args.model, embedding_model=args.embedding_model,
                                   model_pid=args.model_pid, allow_remote_model=args.allow_lan_model,
-                                  allow_no_model=args.no_model_self_check, api_key=api_key)
+                                  allow_no_model=args.no_model_self_check, api_key=api_key,
+                                  timeindex_project=args.timeindex_project)
     elif args.command == "status":
         result = controller.status(args.run_id)
     elif args.command == "cancel":

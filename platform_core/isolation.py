@@ -7,8 +7,9 @@ from typing import Any
 
 import yaml
 
-from .common import REPO, atomic_json, digest_source, inside, read_json
+from .common import atomic_json, digest_source, inside, read_json
 from .manifest import run_path
+from .project import resolve_project_dir
 
 
 def runtime_paths(run_id: str) -> dict[str, Path]:
@@ -20,7 +21,8 @@ def runtime_paths(run_id: str) -> dict[str, Path]:
 
 def prepare(run_id: str, manifest: dict[str, Any], *, api_key: str | None = None) -> dict[str, Path]:
     paths = runtime_paths(run_id)
-    source = REPO / "src" / "TimeIndex"
+    project = resolve_project_dir(manifest.get("timeindex_project"))
+    source = project / "src" / "TimeIndex"
     target = paths["source"]
     if paths["runtime"].exists():
         raise FileExistsError("本轮临时副本已存在")
@@ -43,7 +45,7 @@ def prepare(run_id: str, manifest: dict[str, Any], *, api_key: str | None = None
         settings["LLM_API_KEY"] = api_key
     profile_config.write_text(yaml.safe_dump(settings, allow_unicode=True), encoding="utf-8")
     atomic_json(paths["runtime"] / "isolation.json",
-                {"run_id": run_id, "source_sha256": manifest["source_sha256"],
+                {"run_id": run_id, "timeindex_project": str(project), "source_sha256": manifest["source_sha256"],
                  "profile": str(paths["profile"]), "database": str(paths["database"])})
     if paths["database"].exists():
         raise RuntimeError("副本在导入前已包含数据库")
