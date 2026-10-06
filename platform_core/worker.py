@@ -382,6 +382,7 @@ def _final_status(manifest: dict[str, Any], dataset: dict[str, Any], cases: list
                 "retrieval_time", "live_recording", "model_evidence", "fallback"}
     if ((manifest.get("desktop_mode") == "real_applications" and
          sections.get("live_recording", {}).get("status") != "done") or not embeddings_ready or
+            (manifest.get("resources") and sections.get("resources", {}).get("status") != "done") or
             len(cases) < len(dataset["cases"]) or any(item["status"] != "done" for item in cases) or
             any(value.get("status") in {"failed", "partial"} for name, value in sections.items() if name in required)):
         return "partial"
@@ -517,7 +518,7 @@ def run(run_id: str) -> None:
             resource_result["phases"] = "包括本轮已执行的合成和真实桌面阶段"
             _write_evidence(run_id, "resources.json", resource_result)
             sampler = None
-            section(run_id, "resources", "done")
+            section(run_id, "resources", resource_result["status"], resource_result.get("reason"))
         preserve_database(run_id)
         database_preserved = True
         update_run(run_id, current_phase="正在生成实验表格和逐例报告")
@@ -542,7 +543,9 @@ def run(run_id: str) -> None:
             pass
     finally:
         if sampler:
-            _write_evidence(run_id, "resources.json", sampler.stop())
+            resource_result = sampler.stop()
+            _write_evidence(run_id, "resources.json", resource_result)
+            section(run_id, "resources", resource_result["status"], resource_result.get("reason"))
         if not database_preserved:
             try:
                 preserve_database(run_id)

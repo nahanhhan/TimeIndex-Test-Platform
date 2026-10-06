@@ -8,7 +8,7 @@ from itertools import combinations
 from typing import Any
 from .dataset import TAG_ALIASES
 
-SCORING_VERSION = "4.2"
+SCORING_VERSION = "4.3"
 
 
 def norm(text: Any) -> str:

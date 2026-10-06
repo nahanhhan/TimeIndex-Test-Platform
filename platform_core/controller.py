@@ -3,16 +3,14 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
-import threading
 import time
-from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
 import psutil
 
-from .common import ROOT, RUNS, atomic_json, read_json
+from .common import ROOT, RUNS, atomic_json, file_lock, read_json
 from .isolation import cleanup, prepare, preserve_database
 from .manifest import TERMINAL_STATUSES, create_run, run_path, update_run
 from .preflight import check
@@ -20,34 +18,10 @@ from .reporting import export
 
 
 ACTIVE = RUNS / ".active"
-_ACTIVE_MUTEX = threading.RLock()
 
 
-@contextmanager
 def _active_guard():
-    """Serialize lock metadata changes across dashboard threads and CLI processes."""
-    RUNS.mkdir(parents=True, exist_ok=True)
-    with _ACTIVE_MUTEX, ACTIVE.with_name(ACTIVE.name + ".guard").open("a+b") as guard:
-        if os.name == "nt":
-            import msvcrt
-
-            if guard.seek(0, os.SEEK_END) == 0:
-                guard.write(b"\0")
-                guard.flush()
-            guard.seek(0)
-            msvcrt.locking(guard.fileno(), msvcrt.LK_LOCK, 1)
-        else:
-            import fcntl
-
-            fcntl.flock(guard.fileno(), fcntl.LOCK_EX)
-        try:
-            yield
-        finally:
-            if os.name == "nt":
-                guard.seek(0)
-                msvcrt.locking(guard.fileno(), msvcrt.LK_UNLCK, 1)
-            else:
-                fcntl.flock(guard.fileno(), fcntl.LOCK_UN)
+    return file_lock(ACTIVE.with_name(ACTIVE.name + ".guard"))
 
 
 def _owner_alive(owner: dict[str, Any]) -> bool:
@@ -156,7 +130,7 @@ def status(run_id: str) -> dict[str, Any]:
         raise FileNotFoundError(run_id)
     pid = manifest.get("worker_pid")
     if manifest["status"] == "running" and pid and not psutil.pid_exists(pid):
-        manifest = update_run(run_id, status="interrupted", error="实验子进程意外结束")
+        manifest = update_run(run_id, expected_status="running", status="interrupted", error="实验子进程意外结束")
         release_lock(run_id)
     return manifest
 

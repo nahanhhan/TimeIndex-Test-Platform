@@ -5,6 +5,8 @@ import json
 import os
 import platform
 import tempfile
+import threading
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -12,6 +14,38 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNS = ROOT / "runs"
+_FILE_LOCKS: dict[str, Any] = {}
+_FILE_LOCKS_MUTEX = threading.Lock()
+
+
+@contextmanager
+def file_lock(path: Path):
+    """Hold a file lock across threads and processes; the OS releases it on exit."""
+    identity = os.path.normcase(str(path.resolve()))
+    with _FILE_LOCKS_MUTEX:
+        mutex = _FILE_LOCKS.setdefault(identity, threading.RLock())
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with mutex, path.open("a+b") as guard:
+        if os.name == "nt":
+            import msvcrt
+
+            if guard.seek(0, os.SEEK_END) == 0:
+                guard.write(b"\0")
+                guard.flush()
+            guard.seek(0)
+            msvcrt.locking(guard.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(guard.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            if os.name == "nt":
+                guard.seek(0)
+                msvcrt.locking(guard.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(guard.fileno(), fcntl.LOCK_UN)
 
 
 def now() -> str:

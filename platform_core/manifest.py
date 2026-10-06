@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import secrets
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
-from .common import RUNS, atomic_json, digest_platform, digest_source, host_info, now, read_json
+from .common import RUNS, atomic_json, digest_platform, digest_source, file_lock, host_info, now, read_json
 from .dataset import DEFAULT_DATASET, PAPER_DATASET, load_dataset, select
 from .privacy import normalize_endpoint
 from .project import resolve_project_dir
@@ -86,23 +86,41 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
     return manifest
 
 
-def update_run(run_id: str, **changes: Any) -> dict[str, Any]:
+def _mutate_run(run_id: str, mutate: Callable[[dict[str, Any]], None],
+                expected_status: str | None = None) -> dict[str, Any]:
     path = run_path(run_id) / "manifest.json"
-    manifest = read_json(path)
-    if not isinstance(manifest, dict):
+    if not path.parent.is_dir():
         raise FileNotFoundError(path)
-    if changes.get("status") in TERMINAL_STATUSES:
-        changes["current_phase"] = None
-    manifest.update(changes)
-    manifest["updated_at"] = now()
-    atomic_json(path, manifest)
-    return manifest
+    with file_lock(path.with_name(path.name + ".guard")):
+        manifest = read_json(path)
+        if not isinstance(manifest, dict):
+            raise FileNotFoundError(path)
+        if expected_status is not None and manifest.get("status") != expected_status:
+            return manifest
+        mutate(manifest)
+        if manifest.get("status") in TERMINAL_STATUSES:
+            manifest["current_phase"] = None
+        manifest["updated_at"] = now()
+        atomic_json(path, manifest)
+        return manifest
+
+
+def update_run(run_id: str, *, expected_status: str | None = None, **changes: Any) -> dict[str, Any]:
+    def apply(manifest: dict[str, Any]) -> None:
+        applied = dict(changes)
+        if manifest.get("status") in TERMINAL_STATUSES:
+            # Late controller/progress updates cannot reopen or reclassify a finished run.
+            applied.pop("status", None)
+        manifest.update(applied)
+
+    return _mutate_run(run_id, apply, expected_status)
 
 
 def section(run_id: str, name: str, status: str, reason: str | None = None) -> None:
-    manifest = read_json(run_path(run_id) / "manifest.json")
-    manifest["sections"][name] = {"status": status, "reason": reason}
-    update_run(run_id, sections=manifest["sections"])
+    def apply(manifest: dict[str, Any]) -> None:
+        manifest.setdefault("sections", {})[name] = {"status": status, "reason": reason}
+
+    _mutate_run(run_id, apply)
 
 
 def list_runs() -> list[dict[str, Any]]:

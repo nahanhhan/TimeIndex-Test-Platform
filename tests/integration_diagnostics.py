@@ -35,7 +35,8 @@ def main() -> None:
     run_id = None
     try:
         manifest = start("quick", endpoint=f"http://127.0.0.1:{server.server_port}/v1",
-                         model="fixture-model", embedding_model="fixture-model")
+                         model="fixture-model", embedding_model="fixture-model", resources=True,
+                         model_pid=2 ** 30)  # Deliberately absent PID tests unreadable resources, not model speed.
         run_id = manifest["run_id"]
         directory = run_path(run_id)
         atomic_json(directory / "evidence/fixture.json", {"kind": "numeric_id_protocol_fixture", "research_results": False})
@@ -49,6 +50,15 @@ def main() -> None:
             raise TimeoutError("诊断模拟实验未结束")
         assert current["status"] in {"done", "partial"}, current
         summary = read_json(directory / "reports/summary.json")
+        assert summary["resources"]["model_status"] == "not_measured"
+        assert summary["resources"]["active"]["model"] is None
+        assert summary["resources"]["total"] is None
+        assert current["sections"]["resources"]["status"] == "partial"
+        assert summary["sections"]["resources"]["status"] == "partial"
+        assert any(row["kind"] == "section" and row["id"] == "resources" for row in summary["failures"])
+        if read_json(directory / "evidence/fallback.json")["recorded"] is False:
+            assert any(row["kind"] == "fallback" for row in summary["failures"])
+        assert current["current_phase"] is None
         batch = summary["diagnostics"]["organization_batches"][0]
         assert (batch["model_response_count"], batch["exact_id_matches"], batch["text_id_matches"]) == (8, 0, 8), batch
         assert "core_valid_result_count" in read_json(directory / "evidence/retag_batches.json")["batches"][0]
@@ -62,7 +72,7 @@ def main() -> None:
             assert json.loads(archive.read("reports/details.json"))["diagnostics"] == summary["diagnostics"]
             assert "请求完成与结果有效分开看" in archive.read("reports/report.html").decode("utf-8")
         assert (digest_source(), database_fingerprint()) == before
-        print(f"numeric IDs, keyword fallback, query status and diagnostic ZIP verified: {run_id}")
+        print(f"numeric IDs, failed resource reads, failure inventory and diagnostic ZIP verified: {run_id}")
     finally:
         if run_id and status(run_id)["status"] == "running":
             cancel(run_id)

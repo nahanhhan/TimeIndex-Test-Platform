@@ -108,7 +108,7 @@ class DiagnosticTests(unittest.TestCase):
             with patch("platform_core.reporting.run_path", return_value=directory):
                 paths = export("fixture")
             result = read_json(paths["summary"])
-            self.assertEqual((result["original_scoring_version"], result["scoring_version"]), ("4.0", "4.2"))
+            self.assertEqual((result["original_scoring_version"], result["scoring_version"]), ("4.0", "4.3"))
             self.assertEqual(result["retrieval"]["keyword"]["hit_at_5"], 0)
             self.assertEqual(result["sections"]["fallback"]["status"], "failed")
             self.assertEqual(read_json(paths["details"])["diagnostics"], result["diagnostics"])

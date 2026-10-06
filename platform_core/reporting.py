@@ -15,6 +15,7 @@ from .validation import audit_saved_vectors
 from .details import batch_cluster_score, build_details, hide_uncontrolled_windows, random_reference
 from .report_html import render_report
 from .diagnostics import diagnose
+from .resources import resource_summary
 
 
 def calculate(run_id: str) -> dict[str, Any]:
@@ -36,6 +37,12 @@ def calculate(run_id: str) -> dict[str, Any]:
     if vectors is None:
         vectors = audit_saved_vectors(directory) if cases else {"status": "not_measured"}
     sections = {name: dict(value) for name, value in manifest.get("sections", {}).items()}
+    if isinstance(resources, dict):
+        if isinstance(resources.get("samples"), list):
+            model_selected = (manifest.get("model_pid") is not None or
+                              any(row.get("model") is not None for row in resources["samples"]))
+            resources = {**resources, **resource_summary(resources["samples"], model_selected=model_selected)}
+        sections["resources"] = {"status": resources.get("status", "not_measured"), "reason": resources.get("reason")}
     fallback = details["fault_injection"]
     if isinstance(fallback.get("recorded"), bool):
         sections["fallback"] = {"status": "done" if fallback["recorded"] else "failed",
@@ -106,6 +113,10 @@ def calculate(run_id: str) -> dict[str, Any]:
         "resources": resources if resources is not None else {"status": "not_selected"},
         "failures": [],
     }
+    for name, item in sections.items():
+        if item.get("status") in {"failed", "partial"}:
+            result["failures"].append({"kind": "fallback" if name == "fallback" else "section",
+                                       "id": name, "reason": item.get("reason") or "步骤未能完整完成，详见对应证据"})
     for item in organization["issues"]:
         result["failures"].append({"kind": "organization", "id": item["id"], "reason": "；".join(item["reasons"])})
     for batch in details["batches"].get("batches", []):

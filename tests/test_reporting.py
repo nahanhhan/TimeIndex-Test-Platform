@@ -1,15 +1,58 @@
 from __future__ import annotations
 
 import unittest
+import io
+import json
+import zipfile
 
 from platform_core.common import atomic_json, read_json
-from platform_core.manifest import create_run, run_path, section
+from platform_core.manifest import create_run, run_path, section, update_run
+from platform_core.bundling import build_report_zip
 from platform_core.reporting import _metric_rows, calculate, export
 from platform_core.details import hide_uncontrolled_windows
 from platform_core.scoring import rank_query
 
 
 class ReportRegressionTests(unittest.TestCase):
+    def test_failed_steps_include_fallback_in_html_and_zip(self) -> None:
+        run_id = create_run("quick")["run_id"]
+        directory = run_path(run_id)
+        fallback = directory / "evidence" / "fallback.json"
+        atomic_json(fallback, {"status": "done", "recorded": False, "record": {}})
+        before = fallback.read_bytes()
+        section(run_id, "fallback", "failed", "fixture no record")
+        section(run_id, "model", "failed", "fixture model error")
+        result = calculate(run_id)
+        failed_steps = {name for name, item in result["sections"].items() if item["status"] == "failed"}
+        listed_steps = {row["id"] for row in result["failures"] if row["kind"] in {"section", "fallback"}}
+        self.assertTrue(failed_steps <= listed_steps)
+        self.assertEqual(sum(row["kind"] == "fallback" for row in result["failures"]), 1)
+        paths = export(run_id)
+        self.assertIn("fallback / fallback", paths["html"].read_text(encoding="utf-8"))
+        update_run(run_id, status="partial")
+        with zipfile.ZipFile(io.BytesIO(build_report_zip(run_id))) as archive:
+            saved = json.loads(archive.read("reports/summary.json"))
+            self.assertTrue(any(row["kind"] == "fallback" for row in saved["failures"]))
+        self.assertEqual(fallback.read_bytes(), before)
+
+    def test_legacy_unreadable_resource_samples_are_not_zero_measurements(self) -> None:
+        run_id = create_run("quick", resources=True, model_pid=123)["run_id"]
+        directory = run_path(run_id)
+        path = directory / "evidence" / "resources.json"
+        atomic_json(path, {"status": "done", "model_status": "done", "samples": [
+            {"phase": "active", "timeindex": {"cpu_percent_of_one_core": 2.0, "rss_bytes": 1024, "processes": 1},
+             "model": {"cpu_percent_of_one_core": 0.0, "rss_bytes": 0, "processes": 0}}]})
+        before = path.read_bytes()
+        section(run_id, "resources", "done")
+        result = calculate(run_id)
+        self.assertEqual(result["resources"]["model_status"], "not_measured")
+        self.assertIsNone(result["resources"]["active"]["model"])
+        self.assertIsNone(result["resources"]["total"])
+        self.assertEqual(result["sections"]["resources"]["status"], "partial")
+        self.assertTrue(any(row["kind"] == "section" and row["id"] == "resources" for row in result["failures"]))
+        export(run_id)
+        self.assertEqual(path.read_bytes(), before)
+
     def test_incomplete_retag_and_bad_vectors_do_not_look_successful(self) -> None:
         manifest = create_run("quick")
         run_id = manifest["run_id"]
