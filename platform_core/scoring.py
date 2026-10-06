@@ -8,7 +8,7 @@ from itertools import combinations
 from typing import Any
 from .dataset import TAG_ALIASES
 
-SCORING_VERSION = "4.1"
+SCORING_VERSION = "4.2"
 
 
 def norm(text: Any) -> str:
@@ -135,6 +135,25 @@ def rank_query(relevant_ids: list[str], returned_ids: list[str], latency_ms: flo
     return {"status": "done", "returned_ids": returned_ids, "latency_ms": latency_ms,
             "hit_at_1": int(bool(returned_ids) and returned_ids[0] in targets),
             "hit_at_5": int(rank is not None), "mrr_at_5": 1 / rank if rank else 0.0}
+
+
+def complete_query_rows(planned: list[dict[str, Any]], saved: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Add unmeasured analysis rows; never change the saved query evidence."""
+    saved_ids = {row["id"] for row in saved}
+    missing = [{"id": query["id"], "query": query["text"], "relevant_ids": query["relevant_ids"],
+                "status": "not_measured", "reason": "未保存本题的执行结果，无法评分",
+                "execution_evidence_missing": True}
+               for query in planned if query["id"] not in saved_ids]
+    return [dict(row) for row in saved] + missing
+
+
+def query_completion(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    complete = sum(row.get("status") == "done" for row in rows)
+    errors = sum(row.get("status") == "error" for row in rows)
+    if rows and complete == len(rows):
+        return {"status": "done", "reason": None}
+    return {"status": "partial" if complete else "failed" if errors else "not_measured",
+            "reason": f"查询完成 {complete}/{len(rows)}；错误 {errors}；未完成或未测 {len(rows) - complete - errors}"}
 
 
 def aggregate_queries(rows: list[dict[str, Any]]) -> dict[str, Any]:

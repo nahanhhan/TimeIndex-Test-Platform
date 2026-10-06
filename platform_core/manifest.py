@@ -11,6 +11,9 @@ from .project import resolve_project_dir
 from .scoring import SCORING_VERSION
 
 
+TERMINAL_STATUSES = {"done", "partial", "failed", "diagnostic", "cancelled", "interrupted"}
+
+
 def run_path(run_id: str) -> Path:
     if not run_id or any(char not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_" for char in run_id):
         raise ValueError("运行 ID 无效")
@@ -88,6 +91,8 @@ def update_run(run_id: str, **changes: Any) -> dict[str, Any]:
     manifest = read_json(path)
     if not isinstance(manifest, dict):
         raise FileNotFoundError(path)
+    if changes.get("status") in TERMINAL_STATUSES:
+        changes["current_phase"] = None
     manifest.update(changes)
     manifest["updated_at"] = now()
     atomic_json(path, manifest)

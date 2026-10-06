@@ -153,7 +153,7 @@ else:
         st.progress(min(item.get("completed_cases", 0) / total, 1.0))
         if item.get("error"):
             st.error(item["error"])
-        if item.get("current_phase"):
+        if item["status"] == "running" and item.get("current_phase"):
             st.caption(item["current_phase"])
         if item["status"] == "running" and st.button("取消本轮实验", key=f"cancel-{run_id}"):
             cancel(run_id)

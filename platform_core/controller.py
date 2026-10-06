@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import json
 import os
 import subprocess
 import sys
+import threading
 import time
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -13,30 +14,85 @@ import psutil
 
 from .common import ROOT, RUNS, atomic_json, read_json
 from .isolation import cleanup, prepare, preserve_database
-from .manifest import create_run, run_path, update_run
+from .manifest import TERMINAL_STATUSES, create_run, run_path, update_run
 from .preflight import check
 from .reporting import export
 
 
 ACTIVE = RUNS / ".active"
+_ACTIVE_MUTEX = threading.RLock()
+
+
+@contextmanager
+def _active_guard():
+    """Serialize lock metadata changes across dashboard threads and CLI processes."""
+    RUNS.mkdir(parents=True, exist_ok=True)
+    with _ACTIVE_MUTEX, ACTIVE.with_name(ACTIVE.name + ".guard").open("a+b") as guard:
+        if os.name == "nt":
+            import msvcrt
+
+            if guard.seek(0, os.SEEK_END) == 0:
+                guard.write(b"\0")
+                guard.flush()
+            guard.seek(0)
+            msvcrt.locking(guard.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(guard.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            if os.name == "nt":
+                guard.seek(0)
+                msvcrt.locking(guard.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(guard.fileno(), fcntl.LOCK_UN)
+
+
+def _owner_alive(owner: dict[str, Any]) -> bool:
+    pid = owner.get("pid")
+    if not pid:
+        return False
+    try:
+        process = psutil.Process(pid)
+        expected = owner.get("process_created_at")
+        return process.is_running() and (expected is None or process.create_time() == expected)
+    except psutil.NoSuchProcess:
+        return False
+    except psutil.AccessDenied:
+        return True
+
+
+def _owner(run_id: str, pid: int) -> dict[str, Any]:
+    try:
+        created = psutil.Process(pid).create_time()
+    except psutil.NoSuchProcess:
+        created = None
+    return {"run_id": run_id, "pid": pid, "process_created_at": created}
 
 
 def _lock(run_id: str) -> None:
-    RUNS.mkdir(parents=True, exist_ok=True)
-    if ACTIVE.exists():
+    with _active_guard():
         previous = read_json(ACTIVE, {})
-        pid = previous.get("pid")
-        if pid and psutil.pid_exists(pid):
-            raise RuntimeError(f"另一轮实验仍在运行：{previous.get('run_id')}")
-        ACTIVE.unlink()
-    descriptor = os.open(ACTIVE, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-    with os.fdopen(descriptor, "w", encoding="utf-8") as file:
-        json.dump({"run_id": run_id, "pid": None}, file)
+        if _owner_alive(previous):
+            raise RuntimeError(f"另一轮实验正在准备或运行：{previous.get('run_id')}")
+        atomic_json(ACTIVE, _owner(run_id, os.getpid()))
+
+
+def _publish_worker(run_id: str, pid: int) -> None:
+    with _active_guard():
+        if read_json(run_path(run_id) / "manifest.json", {}).get("status") in TERMINAL_STATUSES:
+            return
+        if read_json(ACTIVE, {}).get("run_id") != run_id:
+            raise RuntimeError("实验启动锁的归属发生变化，拒绝覆盖另一轮实验")
+        atomic_json(ACTIVE, _owner(run_id, pid))
 
 
 def release_lock(run_id: str) -> None:
-    if ACTIVE.exists() and read_json(ACTIVE, {}).get("run_id") == run_id:
-        ACTIVE.unlink()
+    with _active_guard():
+        if read_json(ACTIVE, {}).get("run_id") == run_id:
+            ACTIVE.unlink()
 
 
 def start(mode: str, dataset_path: Path | None = None, **settings: Any) -> dict[str, Any]:
@@ -75,14 +131,15 @@ def start(mode: str, dataset_path: Path | None = None, **settings: Any) -> dict[
         env["no_proxy"] = bypass
         log = (paths["run"] / "worker.log").open("w", encoding="utf-8")
         try:
+            update_run(run_id, status="running")
             process = subprocess.Popen(
                 [sys.executable, "-m", "platform_core.worker", run_id], cwd=ROOT,
                 env=env, stdout=log, stderr=subprocess.STDOUT,
                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         finally:
             log.close()
-        atomic_json(ACTIVE, {"run_id": run_id, "pid": process.pid})
-        return update_run(run_id, status="running", worker_pid=process.pid)
+        _publish_worker(run_id, process.pid)
+        return update_run(run_id, worker_pid=process.pid)
     except Exception as error:
         update_run(run_id, status="failed", error=str(error))
         release_lock(run_id)

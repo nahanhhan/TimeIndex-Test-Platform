@@ -67,7 +67,7 @@ def diagnostic_section(result: dict[str, Any]) -> str:
 
 def retrieval_table(values: dict[str, Any]) -> str:
     labels = {"semantic": "语义检索", "keyword": "摘要关键词检索", "title_keyword": "原始标题关键词对照", "tags": "标签检索"}
-    return table(["检索方式", "已评分 / 全部题目", "首条命中率", "前五条命中率", "排名得分", "平均耗时（毫秒）", "错误 / 未测"],
+    return table(["检索方式", "已评分 / 全部题目", "首条命中率（已评分）", "前五条命中率（已评分）", "排名得分", "平均耗时（毫秒）", "错误 / 未测"],
                  [[labels.get(name, name), f"{item['scored']} / {item['total']}", metric_value(item.get("hit_at_1")),
                    metric_value(item.get("hit_at_5")), metric_value(item.get("mrr_at_5")), metric_value(item.get("mean_latency_ms"), "毫秒"),
                    f"{item.get('errors', 0)} / {item.get('not_measured', 0)}"] for name, item in values.items() if name != "time"])
@@ -197,7 +197,7 @@ def render_report(result: dict[str, Any], details: dict[str, Any], metrics: list
 <details><summary>每批整理的输入记录、返回记录与写回数量</summary>{block(details['batches'])}</details>
 <h2 id="calls">逐次模型请求与原始回复</h2><p>以下请求和回复由接口调用旁路保存，不改写 TimeIndex 提示词或模型回答。请求头和访问令牌不导出，测试敏感串已遮罩，非测试窗口标题已隐藏。旧版本缺失的原始回复不会被拼造。</p>{no_calls}{''.join(calls)}
 <details><summary>受控模型失联场景的实际结果（本地注入故障）</summary>{block(details['fault_injection'])}</details>
-<h2 id="queries">具体问了什么、找回了什么</h2><p>TimeIndex 回忆功能返回记录列表，不会额外生成问答文本。下方列出每题的目标记录、实际请求参数和返回顺序。前五命中率必须结合库中记录总数来看；快速检查的记录很少，分数不能代表长期使用效果。</p>{retrieval_table(result['retrieval'])}<details><summary>记录库大小与随机命中的理论参考</summary>{block(result['retrieval_reference'])}</details>{query_cards(details['queries'])}
+<h2 id="queries">具体问了什么、找回了什么</h2><p>TimeIndex 回忆功能返回记录列表，不会额外生成问答文本。下方列出每题的目标记录、实际请求参数和返回顺序。未保存执行结果的预定题目计入未测；命中率和排名得分只统计已完成题目。前五命中率必须结合库中记录总数来看；快速检查的记录很少，分数不能代表长期使用效果。</p>{retrieval_table(result['retrieval'])}<details><summary>记录库大小与随机命中的理论参考</summary>{block(result['retrieval_reference'])}</details>{query_cards(details['queries'])}
 <h3>真实软件记录的回忆结果</h3>{retrieval_table(result.get('desktop', {}).get('retrieval', {}))}{query_cards(details['desktop_queries']) or '<p>未执行。</p>'}
 <h2 id="privacy">隐私与可选资源</h2>{block(result['privacy'])}<details><summary>资源测量结果与测量边界</summary>{block(result['resources'])}</details><p>报告保留受控虚构输入以便复核；原始完整版证据仅保存在本地运行目录。未测的真实桌面、黑名单或硬件项目不能算作通过。</p>
 <h2 id="metrics">指标、适用范围与失败原因</h2>{table(['项目','值','样本量','单位','条件'], metric_rows)}{table(['步骤','完成状态','说明'],status_rows)}<ul>{failures or '<li>无执行失败；内容质量请结合逐例结果和指标。</li>'}</ul>

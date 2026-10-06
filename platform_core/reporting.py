@@ -10,7 +10,7 @@ from .common import atomic_json, digest_platform, now, read_json
 from .manifest import run_path
 from .paper import overview
 from .privacy import assert_redacted, audit, redact
-from .scoring import SCORING_VERSION, aggregate_queries, ratio, summarize_cases
+from .scoring import SCORING_VERSION, aggregate_queries, complete_query_rows, query_completion, ratio, summarize_cases
 from .validation import audit_saved_vectors
 from .details import batch_cluster_score, build_details, hide_uncontrolled_windows, random_reference
 from .report_html import render_report
@@ -46,17 +46,31 @@ def calculate(run_id: str) -> dict[str, Any]:
                                  "reason": None if recorded == selected else f"成功入库 {recorded}/{selected}"}
     if organization["retag_total"]:
         complete, total = organization["retag_complete"], organization["retag_total"]
-        sections["organization"] = {"status": "done" if complete == total else "partial" if complete else "failed",
-                                    "reason": None if complete == total else f"整理完成 {complete}/{total}，详见缺失记录"}
+        execution = sections.get("organization", {})
+        failed = execution.get("status") == "failed"
+        reason = None if complete == total and not failed else f"整理完成 {complete}/{total}，详见逐例记录"
+        if execution.get("status") in {"failed", "partial"} and execution.get("reason"):
+            reason = (reason or f"整理完成 {complete}/{total}") + "；执行说明：" + execution["reason"]
+        sections["organization"] = {"status": "failed" if failed else "done" if complete == total else "partial" if complete else "failed",
+                                    "reason": reason}
     sections["retrieval_vectors"] = {"status": vectors["status"],
                                     "reason": "检索向量无效，语义分数不可用" if vectors["status"] == "failed"
                                     else vectors.get("reason")}
-    query_rows = {name: list(rows) for name, rows in queries.items()}
+    expected_methods = [] if manifest["mode"] == "desktop" else ["semantic", "keyword", "tags"]
+    if expected_methods and dataset.get("evaluation_profile") == "paper":
+        expected_methods.append("title_keyword")
+    query_rows = {name: complete_query_rows(dataset["queries"], queries.get(name, [])) for name in expected_methods}
+    query_rows.update({name: list(rows) for name, rows in queries.items() if name not in query_rows})
     if query_rows.get("semantic") and vectors["status"] != "done":
         query_rows["semantic"] = [{**row, "status": "not_measured",
                                    "reason": "检索向量无效或未核验，不计算语义效果分数"}
                                   for row in query_rows["semantic"]]
         sections["retrieval_semantic"] = {"status": "not_measured", "reason": "检索向量无效或未核验"}
+    elif "semantic" in query_rows:
+        sections["retrieval_semantic"] = query_completion(query_rows["semantic"])
+    if expected_methods:
+        sections["retrieval_baselines"] = query_completion(
+            [row for name in expected_methods if name != "semantic" for row in query_rows[name]])
     result: dict[str, Any] = {
         "run_id": run_id, "generated_at": now(), "mode": manifest["mode"],
         "scoring_version": SCORING_VERSION, "analysis_platform_sha256": digest_platform(),
@@ -94,6 +108,10 @@ def calculate(run_id: str) -> dict[str, Any]:
     }
     for item in organization["issues"]:
         result["failures"].append({"kind": "organization", "id": item["id"], "reason": "；".join(item["reasons"])})
+    for batch in details["batches"].get("batches", []):
+        if batch.get("status") == "failed":
+            result["failures"].append({"kind": "organization_batch", "id": batch["id"],
+                                       "reason": batch.get("error", "整理批次执行失败")})
     for item in organization["primary_app"]["issues"]:
         result["failures"].append({"kind": "primary_app", **item})
     for item in vectors.get("issues", []):

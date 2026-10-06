@@ -18,7 +18,7 @@ from .preflight import check
 from .privacy import image_fields, is_loopback
 from .reporting import export
 from .resources import ResourceSampler
-from .scoring import rank_query, refinement_issues, summarize_cases
+from .scoring import complete_query_rows, query_completion, rank_query, refinement_issues, summarize_cases
 from .validation import audit_vectors
 
 
@@ -46,6 +46,76 @@ def _make_snapshot(case: dict[str, Any], index: int) -> Any:
         windows=[WindowInfo(hwnd=pid, title=case["title"], pid=pid,
                             process_name=case["process"])],
         hardware=None)
+
+
+def _refresh_refinements(daemon: Any, cases: list[dict[str, Any]]) -> None:
+    updated = {row["id"]: row for row in _records(daemon)}
+    for item in cases:
+        item["refined"] = {key: updated.get(item["record_id"], {}).get(key)
+                           for key in ("refined_summary", "refined_tags", "cluster_id")}
+        item["organization_status"] = "incomplete" if refinement_issues(item["refined"]) else "done"
+
+
+def _organize_records(run_id: str, daemon: Any, dataset: dict[str, Any], cases: list[dict[str, Any]],
+                      id_map: dict[str, str], trace: ModelTrace) -> None:
+    batches: list[dict[str, Any]] = []
+    batch_size = min(50, daemon._retag_batch_size)
+
+    def save_batches() -> None:
+        _write_evidence(run_id, "retag_batches.json",
+                        {"batch_size": batch_size, "origin": "TimeIndex Daemon.retag_batch_size", "batches": batches})
+
+    try:
+        pending = [row for row in daemon.db_store.get_pending_retag(daemon.db_store.get_count())
+                   if row["id"] in id_map]
+        save_batches()
+        for offset in range(0, len(pending), batch_size):
+            if _cancelled(run_id):
+                break
+            batch = pending[offset:offset + batch_size]
+            batch_id = f"B{len(batches) + 1:03d}"
+            case_ids = [id_map.get(row["id"], row["id"]) for row in batch]
+            evidence = {"id": batch_id, "input_ids": case_ids,
+                        "input_record_ids": [row["id"] for row in batch], "status": "running",
+                        "stage": "model", "model_call_ids": [],
+                        "returned_ids_meaning": "本体函数返回的记录列表，可能包括未获有效整理的原记录；有效结果数单列",
+                        "written_meaning": "数据库更新操作数，不代表整理字段完整有效；最终有效数见报告"}
+            batches.append(evidence)
+            save_batches()
+            try:
+                with trace.scope(phase="合成整理", batch_id=batch_id, case_ids=case_ids):
+                    retagged = daemon.llm_processor.retag_cluster(batch)
+                evidence.update(returned_ids=[id_map.get(row["id"], row["id"]) for row in retagged],
+                                core_valid_result_count=sum(not refinement_issues(row) for row in retagged),
+                                stage="database_update")
+                save_batches()
+                written = daemon.db_store.update_retag_records(retagged) if retagged else 0
+                evidence.update(written=written, status="done", stage="finished")
+            except Exception as error:
+                evidence.update(status="failed", error=str(error))
+                raise
+            finally:
+                evidence["model_call_ids"] = [call["id"] for call in trace.calls
+                                              if call["context"].get("batch_id") == batch_id]
+                save_batches()
+            _refresh_refinements(daemon, cases)
+            _write_evidence(run_id, "cases.json", cases)
+        _refresh_refinements(daemon, cases)
+        scored = summarize_cases(dataset, cases)
+        complete, total = scored["retag_complete"], scored["retag_total"]
+        section(run_id, "organization", "done" if complete == total and total else "partial" if complete else "failed",
+                None if complete == total and total else
+                f"整理完成 {complete}/{total}；缺失或无效记录：" + ", ".join(row["id"] for row in scored["issues"]))
+    except Exception as error:
+        reason = str(error)
+        try:
+            # Read the actual database even if an update raised after saving some rows.
+            _refresh_refinements(daemon, cases)
+        except Exception as refresh_error:
+            reason += f"；最终整理字段读取失败：{refresh_error}；保留此前已核验的结果"
+        section(run_id, "organization", "failed", reason)
+    finally:
+        _write_evidence(run_id, "cases.json", cases)
 
 
 def _fallback_case(run_id: str, daemon: Any, case: dict[str, Any]) -> dict[str, Any]:
@@ -178,45 +248,7 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
         saved = [row for row in _records(daemon) if row["id"] in id_map]
         before_retag = saved
         if saved:
-            try:
-                pending = [row for row in daemon.db_store.get_pending_retag(daemon.db_store.get_count())
-                           if row["id"] in id_map]
-                batches = []
-                batch_size = min(50, daemon._retag_batch_size)
-                for offset in range(0, len(pending), batch_size):
-                    if _cancelled(run_id):
-                        break
-                    batch = pending[offset:offset + batch_size]
-                    batch_id = f"B{len(batches) + 1:03d}"
-                    case_ids = [id_map.get(row["id"], row["id"]) for row in batch]
-                    with trace.scope(phase="合成整理", batch_id=batch_id, case_ids=case_ids):
-                        retagged = daemon.llm_processor.retag_cluster(batch)
-                    core_valid_results = sum(not refinement_issues(row) for row in retagged)
-                    written = daemon.db_store.update_retag_records(retagged) if retagged else 0
-                    batches.append({"id": batch_id, "input_ids": case_ids,
-                                    "input_record_ids": [row["id"] for row in batch],
-                                    "returned_ids": [id_map.get(row["id"], row["id"]) for row in retagged],
-                                    "core_valid_result_count": core_valid_results,
-                                    "model_call_ids": [call["id"] for call in trace.calls if call["context"].get("batch_id") == batch_id],
-                                    "returned_ids_meaning": "本体函数返回的记录列表，可能包括未获有效整理的原记录；有效结果数单列",
-                                    "written_meaning": "数据库更新操作数，不代表整理字段完整有效；最终有效数见报告",
-                                    "written": written})
-                _write_evidence(run_id, "retag_batches.json", {"batch_size": batch_size, "origin": "TimeIndex Daemon.retag_batch_size", "batches": batches})
-                updated = {row["id"]: row for row in _records(daemon)}
-                for item in cases:
-                    item["refined"] = {key: updated.get(item["record_id"], {}).get(key)
-                                       for key in ("refined_summary", "refined_tags", "cluster_id")}
-                    item["organization_status"] = "incomplete" if refinement_issues(item["refined"]) else "done"
-                scored = summarize_cases(dataset, cases)
-                complete, total = scored["retag_complete"], scored["retag_total"]
-                section(run_id, "organization", "done" if complete == total and total else
-                        "partial" if complete else "failed",
-                        None if complete == total and total else
-                        f"整理完成 {complete}/{total}；缺失或无效记录：" + ", ".join(row["id"] for row in scored["issues"]))
-            except Exception as error:
-                section(run_id, "organization", "failed", str(error))
-                for item in cases:
-                    item["refined"] = {}
+            _organize_records(run_id, daemon, dataset, cases, id_map, trace)
         else:
             section(run_id, "organization", "partial", "仅评价推理摘要；无入库记录可供重整理")
             for item in cases:
@@ -324,11 +356,13 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
             expected = dataset["protocol"]["time_ranges"]
             section(run_id, "retrieval_time", "done" if complete == expected else "partial" if complete else "failed" if attempted else "not_measured",
                     None if complete == expected else f"时间范围查询完成 {complete}/{expected}")
-        section(run_id, "retrieval_semantic", "not_measured" if not embeddings_ready or vectors["status"] != "done" else
-                "done" if all(row["status"] == "done" for row in queries["semantic"]) else "failed",
-                "嵌入模型不可用" if not embeddings_ready else "检索向量无效或未核验，未执行语义查询" if vectors["status"] != "done" else None)
-        section(run_id, "retrieval_baselines", "done" if corpus else "not_measured",
-                None if corpus else "没有可用的对照记录")
+        semantic = query_completion(complete_query_rows(dataset["queries"], queries["semantic"]))
+        section(run_id, "retrieval_semantic", "not_measured" if not embeddings_ready or vectors["status"] != "done" else semantic["status"],
+                "嵌入模型不可用" if not embeddings_ready else "检索向量无效或未核验，未执行语义查询" if vectors["status"] != "done" else semantic["reason"])
+        baseline_rows = [row for method in queries if method not in {"semantic", "time"}
+                         for row in complete_query_rows(dataset["queries"], queries[method])]
+        baselines = query_completion(baseline_rows)
+        section(run_id, "retrieval_baselines", baselines["status"], baselines["reason"])
         return cases, queries, captures
     finally:
         embedding_provider.get_embedding = original_embedding
@@ -336,6 +370,22 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
         if baseline_store is not None:
             baseline_store.close()
         daemon.db_store.close()
+
+
+def _final_status(manifest: dict[str, Any], dataset: dict[str, Any], cases: list[dict[str, Any]],
+                  sections: dict[str, Any], embeddings_ready: bool, cancelled: bool) -> str:
+    if cancelled:
+        return "cancelled"
+    if manifest.get("allow_no_model"):
+        return "diagnostic"
+    required = {"organization", "retrieval_vectors", "retrieval_semantic", "retrieval_baselines",
+                "retrieval_time", "live_recording", "model_evidence", "fallback"}
+    if ((manifest.get("desktop_mode") == "real_applications" and
+         sections.get("live_recording", {}).get("status") != "done") or not embeddings_ready or
+            len(cases) < len(dataset["cases"]) or any(item["status"] != "done" for item in cases) or
+            any(value.get("status") in {"failed", "partial"} for name, value in sections.items() if name in required)):
+        return "partial"
+    return "done"
 
 
 def run(run_id: str) -> None:
@@ -481,19 +531,8 @@ def run(run_id: str) -> None:
         _write_evidence(run_id, "privacy_stages.json", privacy_stages)
         export(run_id)
         cancelled = _cancelled(run_id)
-        if cancelled:
-            final_status = "cancelled"
-        elif manifest.get("allow_no_model"):
-            final_status = "diagnostic"
-        elif (manifest.get("desktop_mode") == "real_applications" and
-              read_json(directory / "manifest.json")["sections"]["live_recording"]["status"] != "done") or not embeddings_ready or len(cases) < len(dataset["cases"]) or any(
-                item["status"] != "done" for item in cases) or any(
-                value.get("status") in {"failed", "partial"} for name, value in
-                read_json(directory / "manifest.json")["sections"].items()
-                if name in {"organization", "retrieval_vectors", "retrieval_semantic", "retrieval_time", "live_recording", "model_evidence", "fallback"}):
-            final_status = "partial"
-        else:
-            final_status = "done"
+        final_status = _final_status(manifest, dataset, cases, read_json(directory / "manifest.json")["sections"],
+                                     embeddings_ready, cancelled)
     except Exception as error:
         (directory / "error.txt").write_text(traceback.format_exc(), encoding="utf-8")
         update_run(run_id, error=str(error))

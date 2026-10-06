@@ -16,6 +16,61 @@ from .paper import keyword_match
 from .validation import audit_vectors
 
 
+def _organize_desktop_records(run: Any, daemon: Any, examples: list[dict[str, Any]],
+                              trace: ModelTrace) -> tuple[list[dict[str, Any]], str | None, bool]:
+    batches: list[dict[str, Any]] = []
+    error_message = None
+    cancelled = False
+
+    def save_cases() -> None:
+        indexed = {row["id"]: row for row in daemon.db_store.store.get_table().to_arrow().to_pylist()}
+        for example in examples:
+            example["refined"] = {key: indexed.get(example["record_id"], {}).get(key)
+                                   for key in ("refined_summary", "refined_tags", "cluster_id")}
+        atomic_json(run / "evidence" / "live_cases.json", examples)
+
+    try:
+        pending = daemon.db_store.get_pending_retag(daemon.db_store.get_count())
+        atomic_json(run / "evidence" / "desktop_batches.json", batches)
+        for offset in range(0, len(pending), daemon._retag_batch_size):
+            if (run / "cancel.flag").exists():
+                cancelled = True
+                break
+            batch = pending[offset:offset + daemon._retag_batch_size]
+            batch_id = f"LIVE-B{len(batches) + 1:03d}"
+            evidence = {"id": batch_id, "input_ids": [row["id"] for row in batch],
+                        "input_record_ids": [row["id"] for row in batch], "status": "running", "stage": "model",
+                        "model_call_ids": [], "returned_ids_meaning": "本体返回列表，不代表全部得到有效整理",
+                        "written_meaning": "数据库更新操作数，不等于有效整理数"}
+            batches.append(evidence)
+            atomic_json(run / "evidence" / "desktop_batches.json", batches)
+            try:
+                with trace.scope(phase="真实桌面整理", batch_id=batch_id, record_ids=evidence["input_record_ids"]):
+                    updated = daemon.llm_processor.retag_cluster(batch)
+                evidence.update(returned_ids=[row["id"] for row in updated],
+                                core_valid_result_count=sum(not refinement_issues(row) for row in updated),
+                                stage="database_update")
+                atomic_json(run / "evidence" / "desktop_batches.json", batches)
+                written = daemon.db_store.update_retag_records(updated)
+                evidence.update(written=written, status="done", stage="finished")
+            except Exception as error:
+                evidence.update(status="failed", error=str(error))
+                raise
+            finally:
+                evidence["model_call_ids"] = [call["id"] for call in trace.calls
+                                              if call["context"].get("batch_id") == batch_id]
+                atomic_json(run / "evidence" / "desktop_batches.json", batches)
+            save_cases()
+    except Exception as error:
+        error_message = str(error)
+    finally:
+        try:
+            save_cases()
+        except Exception as error:
+            error_message = (error_message + "；" if error_message else "") + f"最终整理字段读取失败：{error}；保留此前已核验的结果"
+    return batches, error_message, cancelled
+
+
 def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | None) -> dict[str, Any]:
     from TimeIndex.daemon.daemon import Daemon
     from TimeIndex.db.embedding_provider import embedding_provider
@@ -134,20 +189,9 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
     rows = daemon.db_store.store.get_table().to_arrow().to_pylist()
     before = rows
     batches = []
+    organization_error = None
     if not cancelled:
-        pending = daemon.db_store.get_pending_retag(daemon.db_store.get_count())
-        for offset in range(0, len(pending), daemon._retag_batch_size):
-            batch = pending[offset:offset + daemon._retag_batch_size]
-            batch_id = f"LIVE-B{len(batches) + 1:03d}"
-            with trace.scope(phase="真实桌面整理", batch_id=batch_id, record_ids=[r["id"] for r in batch]):
-                updated = daemon.llm_processor.retag_cluster(batch)
-            core_valid_results = sum(not refinement_issues(row) for row in updated)
-            written = daemon.db_store.update_retag_records(updated)
-            batches.append({"id": batch_id, "input_ids": [r["id"] for r in batch],
-                            "input_record_ids": [r["id"] for r in batch], "returned_ids": [r["id"] for r in updated],
-                            "core_valid_result_count": core_valid_results, "written": written,
-                            "model_call_ids": [call["id"] for call in trace.calls if call["context"].get("batch_id") == batch_id],
-                            "returned_ids_meaning": "本体返回列表，不代表全部得到有效整理", "written_meaning": "数据库更新操作数，不等于有效整理数"})
+        batches, organization_error, cancelled = _organize_desktop_records(run, daemon, examples, trace)
     rows = daemon.db_store.store.get_table().to_arrow().to_pylist()
     indexed = {row["id"]: row for row in rows}
     for example in examples:
@@ -231,10 +275,10 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
     skipped = any(item["status"] != "started" for item in inventory if item.get("kind") != "blacklist_probe")
     missing_capture = not snapshots or not examples
     organized = sum(not refinement_issues(row.get("refined") or {}) for row in examples)
-    incomplete = skipped or organized < len(examples) or vectors["status"] != "done" or any(row.get("status") == "error" for row in methods["semantic"]) or any(action.get("status") == "failed" for action in actions)
+    incomplete = bool(organization_error) or skipped or organized < len(examples) or vectors["status"] != "done" or any(row.get("status") == "error" for values in methods.values() for row in values) or any(action.get("status") == "failed" for action in actions)
     return {"status": "cancelled" if cancelled else "failed" if missing_capture else "partial" if incomplete else "done", "actions": len(actions), "rounds": rounds,
             "reason": "实际桌面未产生快照或入库记录" if missing_capture else "部分软件、整理或检索未完成，详见逐例证据" if incomplete else None,
-            "organization": {"complete": organized, "total": len(examples)},
+            "organization": {"complete": organized, "total": len(examples), "error": organization_error},
             "quality": quality, "settings": settings,
             "software_started": sum(item["status"] == "started" for item in inventory), "software_attempted": len(inventory),
             "raw_windows": recording(expected_windows, observed), "raw_events": event_score,

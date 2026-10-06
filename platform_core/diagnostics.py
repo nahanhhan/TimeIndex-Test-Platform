@@ -55,6 +55,7 @@ def batch_diagnostics(batch: dict[str, Any], cases: list[dict[str, Any]],
     valid = (sum(not refinement_issues(row.get("refined") or {}) for row in selected)
              if len(selected) == len(batch.get("input_ids", [])) and selected else None)
     return {"id": batch.get("id"), "scope": scope, "input_count": len(batch.get("input_ids", [])),
+            "execution_status": batch.get("status"), "execution_stage": batch.get("stage"), "error": batch.get("error"),
             "model_call_ids": [call["id"] for call in related],
             "model_response_available": raw is not None,
             "model_response_count": len(raw) if raw is not None else None,
@@ -88,6 +89,11 @@ def diagnose(details: dict[str, Any], vectors: dict[str, Any],
             item = batch_diagnostics(batch, rows, calls, scope)
             batches.append(item)
             complete = item["persisted_valid_count"]
+            if saved.get("status") == "failed":
+                add("retag_batch_error", "整理批次执行报错，已保存结果单独统计",
+                    f"批次{item['id']}在{saved.get('stage', '整理')}阶段报错：{saved.get('error', '未保存错误详情')}。"
+                    "此前已保存的整理结果继续按实际字段评分，报错批次的输入与进度保留供核对。",
+                    scope=scope, evidence=item)
             if item["exact_id_matches"] is not None and item["text_id_matches"] > item["exact_id_matches"]:
                 labels = {"str": "文本", "float": "小数数字", "int": "整数数字"}
                 add("retag_id_types", "整理回复中的记录编号类型不同",
