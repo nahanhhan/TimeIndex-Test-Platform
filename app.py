@@ -82,8 +82,7 @@ with st.expander("环境检查", expanded=False):
         try:
             diagnosis = check(endpoint, dedicated_vm=dedicated_vm,
                               allow_remote_model=allow_remote_model, api_key=api_key or None,
-                          timeindex_project=timeindex_project or None, model_timeout_s=model_timeout_s,
-                          verify_core_repairs=verify_core_repairs)
+                              timeindex_project=timeindex_project or None)
             if diagnosis["timeindex_project"]["ready"]:
                 st.success(f"已找到 TimeIndex 本体：{diagnosis['timeindex_project']['path']}")
             else:
@@ -118,7 +117,8 @@ if st.button("开始批量实验", type="primary"):
                          endpoint=endpoint, model=model, embedding_model=embedding_model,
                          model_pid=model_pid, allow_remote_model=allow_remote_model,
                          allow_no_model=allow_no_model, api_key=api_key or None,
-                         timeindex_project=timeindex_project or None)
+                          timeindex_project=timeindex_project or None, model_timeout_s=model_timeout_s,
+                          verify_core_repairs=verify_core_repairs)
         st.success(f"已启动实验：{manifest['run_id']}")
     except Exception as error:
         st.error(str(error))
