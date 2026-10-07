@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "synthetic": true,
   "seed": 20260927,
   "cases": [
@@ -1599,6 +1599,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1638,6 +1639,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1677,6 +1679,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1716,6 +1719,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1755,6 +1759,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1794,6 +1799,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1833,6 +1839,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1872,6 +1879,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1911,6 +1919,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1950,6 +1959,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2706,6 +2716,7 @@
       "keyword": "数据图表",
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2723,6 +2734,7 @@
       "keyword": "数据图表",
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2740,6 +2752,7 @@
       "keyword": "数据图表",
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2757,6 +2770,7 @@
       "keyword": "数据图表",
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2774,6 +2788,7 @@
       "keyword": "数据图表",
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",

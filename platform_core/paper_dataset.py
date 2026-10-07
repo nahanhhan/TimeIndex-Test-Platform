@@ -51,9 +51,9 @@ def build_paper() -> dict[str, Any]:
                             "text": f"查找{topic}第{number}节对应的记录", "keyword": topic,
                             "keyword_terms": [topic, f"第{number}节"], "tags": [*TAG_ALIASES[tag], topic],
                             "relevant_ids": [f"P{index:02d}-{number:02d}"]})
-    return {"version": "paper-1.0", "synthetic": True, "seed": 20261004,
+    return {"version": "paper-1.1", "synthetic": True, "seed": 20261004,
             "evaluation_profile": "paper", "cases": cases, "queries": queries,
-            "protocol": {"id": "timeindex-paper-1.0", "development_dataset": "default.json@2.0",
+            "protocol": {"id": "timeindex-paper-1.1", "development_dataset": "default.json@2.1",
                          "categories": 6, "topics": 12, "cases": 60, "topic_queries": 12,
                          "specific_queries": 18, "time_ranges": 6, "recommended_repetitions": 3,
                          "primary": ["recording", "organization", "topic_retrieval", "time_retrieval", "privacy"],

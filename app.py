@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import secrets
+from datetime import datetime, timezone
 from pathlib import Path
 
 import streamlit as st
@@ -66,6 +67,10 @@ with right:
     allow_no_model = bool(allow_no_model and mode == "quick")
     model_pid_text = st.text_input("模型进程 PID（可选）", value="", disabled=allow_remote_model,
                                    help="模型在另一台电脑时，平台只能测量测试电脑的资源。")
+    model_timeout_s = st.number_input("每次模型请求最多等待（秒）", min_value=1, value=120,
+                                     help="正式摘要、整理及向量调用均使用此上限。模型列表探测3秒，推理连接探测最多60秒；超时会保留部分报告。")
+    verify_core_repairs = st.checkbox("附加本体修复专项验证（模拟接口）", value=False,
+                                      help="在本轮隔离副本测试数字编号、代码块和写入失败保护，不计入实际模型质量成绩；黑名单需另启用专用桌面。")
     st.info("快速检查：8 条多样化合成输入，不实际打开业务软件。完整实验：60 条合成输入、30 个问题；可加测真实软件，逐次记录实际窗口、模型原文和检索结果。")
 
 if mode == "paper":
@@ -77,7 +82,8 @@ with st.expander("环境检查", expanded=False):
         try:
             diagnosis = check(endpoint, dedicated_vm=dedicated_vm,
                               allow_remote_model=allow_remote_model, api_key=api_key or None,
-                              timeindex_project=timeindex_project or None)
+                          timeindex_project=timeindex_project or None, model_timeout_s=model_timeout_s,
+                          verify_core_repairs=verify_core_repairs)
             if diagnosis["timeindex_project"]["ready"]:
                 st.success(f"已找到 TimeIndex 本体：{diagnosis['timeindex_project']['path']}")
             else:
@@ -155,6 +161,10 @@ else:
             st.error(item["error"])
         if item["status"] == "running" and item.get("current_phase"):
             st.caption(item["current_phase"])
+        waiting = item.get("current_model_call")
+        if item["status"] == "running" and waiting:
+            elapsed = max(0, (datetime.now(timezone.utc) - datetime.fromisoformat(waiting["started_at"])).total_seconds())
+            st.caption(f"当前模型步骤：{waiting['phase']} · 请求 {waiting['id']} · 已等待 {elapsed:.0f} 秒 / 上限 {waiting['wait_limit_s']:g} 秒")
         if item["status"] == "running" and st.button("取消本轮实验", key=f"cancel-{run_id}"):
             cancel(run_id)
             st.rerun()

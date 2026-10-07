@@ -10,7 +10,7 @@ from .common import atomic_json, read_json
 from .desktop_apps import AppSession, app_plan
 from .desktop_quality import evaluate
 from .manifest import run_path, update_run
-from .model_trace import ModelTrace
+from .model_trace import ModelTrace, ModelWaitStopped
 from .scoring import aggregate_queries, rank_query, recording, refinement_issues
 from .paper import keyword_match
 from .validation import audit_vectors
@@ -53,7 +53,7 @@ def _organize_desktop_records(run: Any, daemon: Any, examples: list[dict[str, An
                 atomic_json(run / "evidence" / "desktop_batches.json", batches)
                 written = daemon.db_store.update_retag_records(updated)
                 evidence.update(written=written, status="done", stage="finished")
-            except Exception as error:
+            except (Exception, ModelWaitStopped) as error:
                 evidence.update(status="failed", error=str(error))
                 raise
             finally:
@@ -105,10 +105,15 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
         return value
 
     def process(snapshot: Any) -> None:
+        if trace.stop_error:
+            return
         record_id = str(snapshot.timestamp.timestamp())
         started = time.perf_counter()
-        with trace.scope(phase="真实桌面记录", record_id=record_id, snapshot_time=snapshot.timestamp.isoformat()):
-            original_process(snapshot)
+        try:
+            with trace.scope(phase="真实桌面记录", record_id=record_id, snapshot_time=snapshot.timestamp.isoformat()):
+                original_process(snapshot)
+        except ModelWaitStopped:
+            return  # The main experiment thread reports the stop after closing test apps.
         rows = daemon.db_store.store.get_table().to_arrow().to_pylist()
         record = next((row for row in rows if row["id"] == record_id), {})
         examples.append({"id": "LIVE-" + record_id, "record_id": record_id, "input_kind": "real_desktop",
@@ -133,7 +138,7 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
         daemon.start()
         for round_number in range(1, rounds + 1):
             for plan in app_plan(run_id, round_number, scene):
-                if (run / "cancel.flag").exists():
+                if (run / "cancel.flag").exists() or trace.stop_error:
                     cancelled = True
                     break
                 session = AppSession(plan)
@@ -161,7 +166,7 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
                 actions.append({"action": "observe", "application": item["application"], "scene_id": item["id"],
                                 "time": time.time(), "status": "done"})
                 deadline = time.monotonic() + max(60, dwell_s)
-                while time.monotonic() < deadline and not (run / "cancel.flag").exists():
+                while time.monotonic() < deadline and not (run / "cancel.flag").exists() and not trace.stop_error:
                     if any(any(plan["marker"] in window["title"] for window in row["input"]["windows"]) for row in examples):
                         break
                     time.sleep(0.2)
@@ -184,6 +189,9 @@ def run_desktop(run_id: str, rounds: int, dwell_s: float, trace: ModelTrace | No
                                                         "expected_windows": expected_windows, "expected_events": expected_events})
         embedding_provider.client = old_embedding_client
 
+    if trace.stop_error:
+        daemon.db_store.close()
+        raise trace.stop_error
     if daemon._process_thread and daemon._process_thread.is_alive():
         return {"status": "partial", "reason": "采集已停止，但模型处理线程未在限定时间内结束；输出证据不完整"}
     rows = daemon.db_store.store.get_table().to_arrow().to_pylist()

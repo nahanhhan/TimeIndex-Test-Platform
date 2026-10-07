@@ -1,5 +1,5 @@
 {
-  "version": "paper-1.0",
+  "version": "paper-1.1",
   "synthetic": true,
   "seed": 20261004,
   "evaluation_profile": "paper",
@@ -1814,6 +1814,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1857,6 +1858,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1900,6 +1902,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1943,6 +1946,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -1986,6 +1990,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2029,6 +2034,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2072,6 +2078,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2115,6 +2122,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2158,6 +2166,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -2201,6 +2210,7 @@
       ],
       "tag_aliases": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3165,6 +3175,7 @@
       ],
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3192,6 +3203,7 @@
       ],
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3215,6 +3227,7 @@
       ],
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3237,6 +3250,7 @@
       ],
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3264,6 +3278,7 @@
       ],
       "tags": [
         "analysis",
+        "data",
         "分析",
         "数据",
         "图表",
@@ -3399,8 +3414,8 @@
     }
   ],
   "protocol": {
-    "id": "timeindex-paper-1.0",
-    "development_dataset": "default.json@2.0",
+    "id": "timeindex-paper-1.1",
+    "development_dataset": "default.json@2.1",
     "categories": 6,
     "topics": 12,
     "cases": 60,

@@ -103,6 +103,21 @@ def blacklist_exposure(snapshots: list[dict[str, Any]], blacklisted: list[str]) 
             "window_title_exposure": bool(windows)}
 
 
+def blacklist_verification(blocked: list[dict[str, Any]], control: list[dict[str, Any]],
+                           pid: int, title: str) -> dict[str, Any]:
+    def observed(rows: list[dict[str, Any]], kind: str) -> bool:
+        return any((item.get("pid") == pid if kind == "process_events" else
+                    item.get("title") == title and item.get("pid") == pid)
+                   for row in rows for item in row.get(kind, []))
+
+    result = {}
+    for kind, key in (("windows", "window_check"), ("process_events", "event_check")):
+        seen, leaked = observed(control, kind), observed(blocked, kind)
+        result[key] = {"status": "passed" if seen and not leaked else "failed" if seen else "not_measured",
+                       "control_observed": seen, "blocked_observed": leaked}
+    return result
+
+
 def image_fields(value: Any) -> list[str]:
     keys = {"screenshot", "screen_image", "image", "image_data", "png", "jpeg", "webp"}
     found: list[str] = []

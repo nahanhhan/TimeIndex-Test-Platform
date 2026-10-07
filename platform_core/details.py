@@ -10,6 +10,31 @@ from .common import read_json
 from .scoring import facts, pairwise_clusters, ratio, record_alignment
 
 
+METHOD_LABELS = {"semantic": "本体语义检索", "tags": "本体标签检索（平台提供查询标签）",
+                 "keyword": "平台摘要关键词对照", "title_keyword": "平台原始标题关键词对照",
+                 "time": "本体时间查询"}
+
+
+def associate_queries(queries: dict[str, Any], calls: list[dict[str, Any]]) -> dict[str, Any]:
+    """Correct report associations without changing saved queries or model evidence."""
+    result = {}
+    for method, rows in queries.items():
+        result[method] = []
+        for row in rows:
+            related = [call["id"] for call in calls if method == "semantic" and
+                       call.get("context", {}).get("query_id") == row["id"] and
+                       call.get("context", {}).get("method") == method]
+            item = {**row, "model_call_ids": related,
+                    "model_call_note": ("关联本题、本检索方法的实际模型请求" if related else
+                                        "未保存本方法的模型调用证据，无法复原" if method == "semantic" else
+                                        "本方法未调用模型；关键词对照由平台执行" if method in {"keyword", "title_keyword"} else
+                                        "本方法未调用模型；直接查询本体保存的记录")}
+            if row.get("model_call_ids") and row["model_call_ids"] != related:
+                item["saved_model_call_ids"] = list(row["model_call_ids"])
+            result[method].append(item)
+    return result
+
+
 def build_details(directory: Path, dataset: dict[str, Any], cases: list[dict[str, Any]],
                   queries: dict[str, Any]) -> dict[str, Any]:
     traces = read_json(directory / "evidence" / "model_calls.json")
@@ -45,16 +70,16 @@ def build_details(directory: Path, dataset: dict[str, Any], cases: list[dict[str
     for call in calls:
         call["case_ids"] = ([call["context"]["case_id"]] if call["context"].get("case_id") else
                             call["context"].get("case_ids", []))
-    return {"schema_version": 3, "synthetic_software": list(applications.values()),
+    return {"schema_version": 4, "synthetic_software": list(applications.values()),
             "desktop_software": inventory.get("applications", []), "desktop_inventory": inventory,
-            "cases": examples, "queries": queries, "batches": batches, "model_calls": calls,
+            "cases": examples, "queries": associate_queries(queries, calls), "batches": batches, "model_calls": calls,
             "model_trace_available": traces is not None,
             "live": read_json(directory / "evidence" / "live.json", {}),
             "desktop_settings": read_json(directory / "evidence" / "desktop_settings.json", {}),
             "desktop_batches": read_json(directory / "evidence" / "desktop_batches.json", []),
             "live_cases": live_cases,
             "live_actions": desktop.get("actions", []), "fault_injection": read_json(directory / "evidence" / "fallback.json", {}),
-            "desktop_queries": read_json(directory / "evidence" / "desktop_queries.json", {}),
+            "desktop_queries": associate_queries(read_json(directory / "evidence" / "desktop_queries.json", {}), calls),
             "evidence_limits": traces.get("capture_errors", []) if traces else ["原始模型请求和回复未保存；报告展示解析结果，不冒充原始回复"]}
 
 

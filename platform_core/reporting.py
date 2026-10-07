@@ -12,7 +12,7 @@ from .paper import overview
 from .privacy import assert_redacted, audit, redact
 from .scoring import SCORING_VERSION, aggregate_queries, complete_query_rows, query_completion, ratio, summarize_cases
 from .validation import audit_saved_vectors
-from .details import batch_cluster_score, build_details, hide_uncontrolled_windows, random_reference
+from .details import METHOD_LABELS, batch_cluster_score, build_details, hide_uncontrolled_windows, random_reference
 from .report_html import render_report
 from .diagnostics import diagnose
 from .resources import resource_summary
@@ -51,7 +51,9 @@ def calculate(run_id: str) -> dict[str, Any]:
         recorded, selected = organization["cases_done"], organization["cases_total"]
         sections["recording"] = {"status": "done" if recorded == selected else "partial" if recorded else "failed",
                                  "reason": None if recorded == selected else f"成功入库 {recorded}/{selected}"}
-    if organization["retag_total"]:
+    organization_attempted = (bool(sections.get("organization")) or bool(details["batches"].get("batches"))
+                              or any("refined" in row for row in cases))
+    if organization["retag_total"] and organization_attempted:
         complete, total = organization["retag_complete"], organization["retag_total"]
         execution = sections.get("organization", {})
         failed = execution.get("status") == "failed"
@@ -60,6 +62,11 @@ def calculate(run_id: str) -> dict[str, Any]:
             reason = (reason or f"整理完成 {complete}/{total}") + "；执行说明：" + execution["reason"]
         sections["organization"] = {"status": "failed" if failed else "done" if complete == total else "partial" if complete else "failed",
                                     "reason": reason}
+    elif organization["retag_total"]:
+        sections["organization"] = {"status": "not_measured", "reason": "未保存整理执行证据；记录阶段停止不算整理失败"}
+        for key in ("facts_after", "details_after", "tag_cues_after"):
+            organization[key] = {"matched": 0, "total": 0, "coverage": None}
+        organization["tags_after"] = {"cases": 0, "tp": 0, "fp": 0, "fn": 0, "f1": None}
     sections["retrieval_vectors"] = {"status": vectors["status"],
                                     "reason": "检索向量无效，语义分数不可用" if vectors["status"] == "failed"
                                     else vectors.get("reason")}
@@ -98,11 +105,18 @@ def calculate(run_id: str) -> dict[str, Any]:
             "actual_software_launches": sum(row.get("actually_launched", False) for row in details["desktop_software"]),
             "observable_scope": "进程事件、可见窗口标题与时间；不把文档正文、用户编辑操作当成已观察事实",
             "tag_scoring": "标签线索覆盖是主要指标；coding等精确词表F1仅为辅助诊断，不强迫TimeIndex自由标签使用固定词表",
+            "evaluation_goal": "提供粗粒度历史时间线线索，帮助信息残缺的LLM缩小范围；需要细节时按需调用本体raw接口；隐私优先，不追求保存所有信息",
+            "evaluation_scope": "流程完成、线索质量观察、辅助诊断和未测分别说明；不以函数、章节、固定标签或细节完整率判定本体达标；相同摘要、相同向量或粗分组不单独判失败",
+            "quality_scope": "预设词语和应用别名匹配只能辅助排查；名称未匹配需人工核对是否与实际活动冲突，不能直接判为错误线索",
             "clustering_scope": "同一次真实TimeIndex整理调用内的记录关系；批次大小来自Daemon配置",
             "model_calls_saved": len(details["model_calls"]), "raw_model_trace_available": details["model_trace_available"],
             "evidence_limits": details["evidence_limits"],
             "platform_fixture": read_json(directory / "evidence" / "fixture.json"),
-            "keyword_baseline": "新跑实验优先使用有效整理摘要，否则回退有效原始摘要；历史复算只统计保存的查询返回，不重新查询",
+            "keyword_baseline": "平台实现的摘要对照，不是本体关键词接口成绩；新跑实验优先使用有效整理摘要，否则回退有效原始摘要；历史复算只统计保存的查询返回，不重新查询",
+            "retrieval_methods": METHOD_LABELS,
+            "model_wait": {"formal_limit_s": manifest.get("model_timeout_s"), "model_list_probe_limit_s": 3,
+                           "inference_probe_limit_s": min(60, manifest["model_timeout_s"]) if manifest.get("model_timeout_s") else 60,
+                           "scope": "正式调用由平台限制等待并禁用自动重试；旧运行未记录自身等待上限，不追溯补造"},
         },
         "retrieval_reference": random_reference(dataset, cases, dataset["queries"]),
         "retrieval": {name: aggregate_queries(rows) for name, rows in query_rows.items()},
@@ -112,19 +126,29 @@ def calculate(run_id: str) -> dict[str, Any]:
         "recording": live.get("recording") if isinstance(live, dict) else {"status": "not_measured"},
         "resources": resources if resources is not None else {"status": "not_selected"},
         "failures": [],
+        "quality_observations": [],
+        "core_repair_checks": read_json(directory / "evidence" / "core_repairs.json", {
+            "status": "not_measured", "reason": "本轮未执行本体修复专项验证，普通实验和平台诊断测试不能代替专项结果"}),
     }
+    blacklist = privacy_checks.get("blacklist", {})
+    if blacklist.get("window_check") or blacklist.get("event_check"):
+        result["core_repair_checks"].setdefault("checks", {})["blacklist"] = {
+            "window": blacklist.get("window_check", {"status": "not_measured"}),
+            "process_events": blacklist.get("event_check", {"status": "not_measured"}),
+            "scope": blacklist.get("verification_scope")}
     for name, item in sections.items():
         if item.get("status") in {"failed", "partial"}:
             result["failures"].append({"kind": "fallback" if name == "fallback" else "section",
                                        "id": name, "reason": item.get("reason") or "步骤未能完整完成，详见对应证据"})
-    for item in organization["issues"]:
+    for item in organization["issues"] if sections.get("organization", {}).get("status") != "not_measured" else []:
         result["failures"].append({"kind": "organization", "id": item["id"], "reason": "；".join(item["reasons"])})
     for batch in details["batches"].get("batches", []):
         if batch.get("status") == "failed":
             result["failures"].append({"kind": "organization_batch", "id": batch["id"],
                                        "reason": batch.get("error", "整理批次执行失败")})
     for item in organization["primary_app"]["issues"]:
-        result["failures"].append({"kind": "primary_app", **item})
+        result["quality_observations"].append({"kind": "primary_app", **item,
+                                               "reason": "应用名称未匹配输入别名；请核对是否与实际活动冲突，不要求逐字一致"})
     for item in vectors.get("issues", []):
         result["failures"].append({"kind": "vector", "id": item["id"], "reason": "；".join(item["reasons"])})
     for item in cases:
@@ -135,11 +159,14 @@ def calculate(run_id: str) -> dict[str, Any]:
         for row in rows:
             if row.get("status") == "not_measured":
                 continue
-            if row.get("status") == "error" or row.get("hit_at_5") == 0:
+            if row.get("status") == "error":
                 result["failures"].append({"kind": f"query:{method}", "id": row.get("id"),
                                            "reason": row.get("error", "前五条未命中")})
+            elif row.get("hit_at_5") == 0:
+                result["quality_observations"].append({"kind": f"query:{method}", "id": row.get("id"),
+                    "reason": METHOD_LABELS.get(method, method) + "前五条未命中预设目标；仅表示本题表现，不以章节或细节匹配判本体故障"})
             if method == "time" and row.get("status") == "done" and not row.get("exact_set_match"):
-                result["failures"].append({"kind": "query:time_set", "id": row.get("id"),
+                result["quality_observations"].append({"kind": "query:time_set", "id": row.get("id"),
                                            "reason": "时间范围返回集合与预期不一致，详见逐题记录"})
     return result
 
@@ -154,10 +181,10 @@ def _metric_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
         item = organization[key]
         rows.append({"项目": label, "值": item.get("coverage", item.get("f1")),
                      "样本量": item.get("total", item.get("cases", organization["cases_scored"])), "单位": unit,
-                     "条件": result["mode"] + ("；整理结果缺失计为未命中" if key.endswith("after") else "")})
+                     "条件": result["mode"] + "；辅助词语/词表诊断，不作为本体及格标准" + ("；整理结果缺失计为未命中" if key.endswith("after") else "")})
     for label, value, total in [
         ("合成场景入库完成率", ratio(organization["cases_done"], organization["cases_total"]), organization["cases_total"]),
-        ("整理完成率", ratio(organization["retag_complete"], organization["retag_total"]), organization["retag_total"]),
+        ("整理完成率", ratio(organization["retag_complete"], organization["retag_total"]) if result["sections"].get("organization", {}).get("status") != "not_measured" else None, organization["retag_total"]),
         ("主要应用匹配率", organization["primary_app"]["accuracy"], organization["primary_app"]["total"]),
         ("标签线索覆盖率", organization["tag_cues_before"]["coverage"], organization["tag_cues_before"]["total"]),
         ("整理后标签线索覆盖率", organization["tag_cues_after"]["coverage"], organization["tag_cues_after"]["total"]),
@@ -166,7 +193,9 @@ def _metric_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
         ("摘要编号保留率", organization["details_before"]["coverage"], organization["details_before"]["total"]),
         ("整理后编号保留率", organization["details_after"]["coverage"], organization["details_after"]["total"]),
     ]:
-        rows.append({"项目": label, "值": value, "样本量": total, "单位": "比例", "条件": result["mode"]})
+        diagnostic = label in {"主要应用匹配率", "摘要编号保留率", "整理后编号保留率", "标签线索覆盖率", "整理后标签线索覆盖率"}
+        rows.append({"项目": label, "值": value, "样本量": total, "单位": "比例",
+                     "条件": result["mode"] + ("；辅助诊断，不作为本体及格标准" if diagnostic else "；流程与保存可靠性")})
     for phase, label in [("before", "共同完成样本整理前标签 F1"), ("after", "共同完成样本整理后标签 F1")]:
         item = organization["paired"][f"tags_{phase}"]
         rows.append({"项目": label, "值": item["f1"], "样本量": item["cases"], "单位": "比例",
@@ -176,7 +205,8 @@ def _metric_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         for metric in ("hit_at_1", "hit_at_5", "mrr_at_5", "mean_latency_ms"):
             rows.append({"项目": f"{method} {metric}", "值": item[metric], "样本量": item["scored"],
-                         "单位": "毫秒" if metric == "mean_latency_ms" else "比例", "条件": result["mode"]})
+                         "单位": "毫秒" if metric == "mean_latency_ms" else "比例",
+                         "条件": METHOD_LABELS.get(method, method) + "；" + result["mode"] + "；预设题目表现，不设及格分"})
     recording = result["recording"]
     if recording and recording.get("status") != "not_measured":
         rows.append({"项目": "活动记录检出率", "值": recording.get("recall"),
@@ -191,11 +221,12 @@ def _metric_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
         item = quality.get(key, {})
         if item:
             rows.append({"项目": label, "值": item.get("coverage"), "样本量": item.get("total"), "单位": "比例",
-                         "条件": "仅实际模型请求中出现的受控窗口；不评估正文理解"})
+                          "条件": "辅助诊断，不作为本体及格标准；仅实际模型请求中出现的受控窗口，不评估正文理解"})
     for method, item in desktop.get("retrieval", {}).items():
         for metric in ("hit_at_1", "hit_at_5", "mrr_at_5", "mean_latency_ms"):
             rows.append({"项目": f"真实软件 {method} {metric}", "值": item[metric], "样本量": item["scored"],
-                         "单位": "毫秒" if metric == "mean_latency_ms" else "比例", "条件": "真实软件的独立数据库"})
+                         "单位": "毫秒" if metric == "mean_latency_ms" else "比例",
+                         "条件": METHOD_LABELS.get(method, method) + "；真实软件的独立数据库"})
     return rows
 
 
@@ -209,7 +240,7 @@ def _paper_main_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
         ("合成输入入库完成率", ratio(organization["cases_done"], organization["cases_total"]), organization["cases_total"], "比例"),
         ("原始窗口信息保留率", ratio(raw["windows_preserved"], raw["windows_expected"]), raw["windows_expected"], "比例"),
         ("原始进程事件保留率", ratio(raw["events_preserved"], raw["events_expected"]), raw["events_expected"], "比例"),
-        ("整理完成率", ratio(organization["retag_complete"], organization["retag_total"]), organization["retag_total"], "比例"),
+        ("整理完成率", ratio(organization["retag_complete"], organization["retag_total"]) if result["sections"].get("organization", {}).get("status") != "not_measured" else None, organization["retag_total"], "比例"),
         ("整理前主题线索保留率", organization["facts_before"]["coverage"], organization["facts_before"]["total"], "比例"),
         ("整理后主题线索保留率", organization["facts_after"]["coverage"], organization["facts_after"]["total"], "比例"),
         ("整理前自由标签线索覆盖率", organization["tag_cues_before"]["coverage"], organization["tag_cues_before"]["total"], "比例"),
@@ -227,7 +258,7 @@ def _paper_main_rows(result: dict[str, Any]) -> list[dict[str, Any]]:
     for method, item in paper["tasks"]["topic"]["methods"].items():
         for metric, label in (("completion_rate", "查询完成率"), ("hit_at_1", "首条命中率（已完成查询）"),
                               ("hit_at_5_all_questions", "前五命中率（全部预定问题）"), ("mrr_at_5", "前五排名得分（已完成查询）")):
-            rows.append({"项目": f"主题查找 {method} {label}", "值": item[metric],
+            rows.append({"项目": f"主题查找 {METHOD_LABELS.get(method, method)} {label}", "值": item[metric],
                          "样本量": item["scored"] if metric in {"hit_at_1", "mrr_at_5"} else item["total"],
                          "单位": "比例", "条件": "同主题的多条记录预先列为相关；未执行数和错误数见检索分任务表"})
     if result["recording"] and result["recording"].get("status") != "not_measured":
@@ -292,7 +323,7 @@ def export(run_id: str) -> dict[str, Path]:
         tasks = []
         for task, item in safe["paper"]["tasks"].items():
             for method, values in item["methods"].items():
-                tasks.append({"任务": "主题查找（主实验）" if task == "topic" else "指定记录（诊断）", "方式": method,
+                tasks.append({"任务": "主题查找（主实验）" if task == "topic" else "指定记录（诊断）", "方式": METHOD_LABELS.get(method, method),
                               "预定问题数": values["total"], "已完成数": values["scored"], "错误数": values["errors"],
                               "未测数": values["not_measured"], "首条命中率": values["hit_at_1"],
                               "前五命中率": values["hit_at_5"], "全部问题前五命中率": values["hit_at_5_all_questions"],

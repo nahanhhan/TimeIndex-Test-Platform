@@ -11,7 +11,7 @@ from typing import Any
 
 from .common import atomic_json, read_json
 from .manifest import run_path
-from .privacy import blacklist_exposure
+from .privacy import blacklist_exposure, blacklist_verification
 from .scoring import recording
 
 
@@ -32,8 +32,13 @@ def _probe_blacklist(run_id: str, scene: Path) -> dict[str, Any]:
     from TimeIndex.daemon.wmi_monitor import WmiCollector
 
     collected: list[dict[str, Any]] = []
+    control_collected: list[dict[str, Any]] = []
     collector = WmiCollector(interval=1, global_blacklist=["python.exe"])
+    control_collector = WmiCollector(interval=1, global_blacklist=[])
     collector.add_callback(lambda snapshot: collected.append({
+        "windows": [asdict(window) for window in snapshot.windows],
+        "process_events": [asdict(event) for event in snapshot.process_events]}))
+    control_collector.add_callback(lambda snapshot: control_collected.append({
         "windows": [asdict(window) for window in snapshot.windows],
         "process_events": [asdict(event) for event in snapshot.process_events]}))
     title = f"TI-BLACKLIST-{run_id}"
@@ -42,6 +47,7 @@ def _probe_blacklist(run_id: str, scene: Path) -> dict[str, Any]:
     child: subprocess.Popen | None = None
     try:
         collector.start()
+        control_collector.start()
         child = subprocess.Popen([sys.executable, "-m", "platform_core.live_window",
                                   "--title", title, "--control", str(control), "--ready", str(ready)],
                                  creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
@@ -58,7 +64,9 @@ def _probe_blacklist(run_id: str, scene: Path) -> dict[str, Any]:
                 child.wait(timeout=2)
             except subprocess.TimeoutExpired:
                 child.terminate()
+            time.sleep(1)  # Give the event collector a chance to observe the exit.
         collector.stop()
+        control_collector.stop()
     result = blacklist_exposure(collected, ["python.exe"])
     result["status"] = "done" if collected else "failed"
     result["software"] = {"id": "BLACKLIST", "application": "Python Tkinter 黑名单探针", "kind": "blacklist_probe",
@@ -68,6 +76,8 @@ def _probe_blacklist(run_id: str, scene: Path) -> dict[str, Any]:
                           "windows": [{"title": title, "pid": child.pid}] if ready.exists() and child else []}
     result["probe_title_observed"] = any(
         title == window.get("title") for snapshot in collected for window in snapshot["windows"])
+    result.update(blacklist_verification(collected, control_collected, child.pid, title))
+    result["verification_scope"] = "同一受控窗口和PID在未屏蔽采集中出现后，才能判定屏蔽通过；未观察到正对照时保持未验证"
     return result
 
 

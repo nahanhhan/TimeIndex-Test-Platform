@@ -172,7 +172,11 @@ def cancel(run_id: str, timeout: float = 5.0) -> dict[str, Any]:
         except (OSError, RuntimeError) as error:
             update_run(run_id, cleanup_error=str(error))
     release_lock(run_id)
-    return manifest
+    try:
+        export(run_id)
+    except Exception as error:
+        update_run(run_id, report_error=str(error))
+    return status(run_id)
 
 
 def replay(run_id: str) -> dict[str, Path]:

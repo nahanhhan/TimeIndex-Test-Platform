@@ -12,7 +12,7 @@ from typing import Any
 from .common import atomic_json, now, read_json
 from .isolation import cleanup, preserve_database, runtime_paths, verify_import
 from .manifest import run_path, section, update_run
-from .model_trace import ModelTrace
+from .model_trace import ModelTrace, ModelWaitStopped
 from .paper import keyword_match, run_time_queries
 from .preflight import check
 from .privacy import image_fields, is_loopback
@@ -91,7 +91,7 @@ def _organize_records(run_id: str, daemon: Any, dataset: dict[str, Any], cases: 
                 save_batches()
                 written = daemon.db_store.update_retag_records(retagged) if retagged else 0
                 evidence.update(written=written, status="done", stage="finished")
-            except Exception as error:
+            except (Exception, ModelWaitStopped) as error:
                 evidence.update(status="failed", error=str(error))
                 raise
             finally:
@@ -220,6 +220,7 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
                                           "process_events": [{"event_type": item.event_type,
                                                               "process_name": item.process_name, "pid": item.pid}
                                                              for item in snapshot.process_events]})
+            _write_evidence(run_id, "snapshots.json", captures["snapshots"])
             record_id = str(snapshot.timestamp.timestamp())
             before_intents = len(captures["intents"])
             started = time.perf_counter()
@@ -332,6 +333,12 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
                     result_ids = [id_map.get(str(item.get("id")), "unknown") for item in found]
                     scored = rank_query(query["relevant_ids"], result_ids,
                                         (time.perf_counter() - started) * 1000)
+                except ModelWaitStopped as error:
+                    queries[method].append({"id": query["id"], "query": query["text"],
+                                            "relevant_ids": query["relevant_ids"],
+                                            **rank_query(query["relevant_ids"], [], (time.perf_counter() - started) * 1000, str(error))})
+                    _write_evidence(run_id, "queries.json", queries)
+                    raise
                 except Exception as error:
                     scored = rank_query(query["relevant_ids"], [],
                                         (time.perf_counter() - started) * 1000, str(error))
@@ -343,8 +350,11 @@ def _run_synthetic(run_id: str, dataset: dict[str, Any], ready: bool,
                                         "keyword": query["keyword"], "keyword_terms": query.get("keyword_terms", [query["keyword"]]),
                                         "tags_requested": query["tags"],
                                         "corpus_size": len(corpus), "returned_records": returned,
-                                        "model_call_ids": [call["id"] for call in trace.calls if call["context"].get("query_id") == query["id"]],
+                                        "model_call_ids": [call["id"] for call in trace.calls
+                                                           if call["context"].get("query_id") == query["id"]
+                                                           and call["context"].get("method") == method],
                                         "relevant_ids": query["relevant_ids"], **scored})
+                _write_evidence(run_id, "queries.json", queries)
             _write_evidence(run_id, "queries.json", queries)
         if dataset.get("evaluation_profile") == "paper":
             queries["time"] = run_time_queries(dataset, cases, daemon.db_store, id_map,
@@ -379,7 +389,7 @@ def _final_status(manifest: dict[str, Any], dataset: dict[str, Any], cases: list
     if manifest.get("allow_no_model"):
         return "diagnostic"
     required = {"organization", "retrieval_vectors", "retrieval_semantic", "retrieval_baselines",
-                "retrieval_time", "live_recording", "model_evidence", "fallback"}
+                 "retrieval_time", "live_recording", "model_evidence", "fallback", "core_repairs"}
     if ((manifest.get("desktop_mode") == "real_applications" and
          sections.get("live_recording", {}).get("status") != "done") or not embeddings_ready or
             (manifest.get("resources") and sections.get("resources", {}).get("status") != "done") or
@@ -396,7 +406,14 @@ def run(run_id: str) -> None:
     cancelled = False
     database_preserved = False
     final_status = "failed"
-    trace = ModelTrace(directory / "evidence" / "model_calls.json")
+    def on_model_call(row: dict[str, Any] | None) -> None:
+        waiting = ({"id": row["id"], "phase": row["context"].get("phase", "模型请求"),
+                    "started_at": row["started_at"], "wait_limit_s": row["wait_limit_s"]} if row else None)
+        update_run(run_id, current_model_call=waiting)
+
+    trace = ModelTrace(directory / "evidence" / "model_calls.json",
+                       timeout_s=manifest.get("model_timeout_s", 120),
+                       cancelled=lambda: _cancelled(run_id), on_call=on_model_call)
     try:
         imported = verify_import(run_id)
         _write_evidence(run_id, "import_paths.json", imported)
@@ -420,7 +437,8 @@ def run(run_id: str) -> None:
 
             try:
                 client = trace.wrap(OpenAI(base_url=config.llm_base_url, api_key=config.llm_api_key,
-                                          timeout=60, max_retries=0))
+                                          timeout=60, max_retries=0),
+                                    timeout_s=min(60, manifest.get("model_timeout_s", 120)))
                 with trace.scope(phase="模型连接检查"):
                     response = client.chat.completions.create(
                         model=manifest["model"], messages=[{"role": "user", "content": "请简短回复 OK"}],
@@ -468,6 +486,11 @@ def run(run_id: str) -> None:
         _write_evidence(run_id, "embedding_checks.json", captures["embedding_checks"])
         _write_evidence(run_id, "snapshots.json", captures["snapshots"])
         _write_evidence(run_id, "queries.json", queries)
+        if manifest.get("verify_core_repairs"):
+            from .core_repairs import verify
+            repair_result = verify(run_id, trace)
+            section(run_id, "core_repairs", repair_result["status"],
+                    "只验证本轮源码副本；模拟回复不计入真实模型质量，黑名单另测")
         privacy_stages = {
             "capture": captures["snapshots"],
             "model_input": {"successful_requests": [call["request"] for call in trace.calls if call["status"] == "done"]},
@@ -494,6 +517,8 @@ def run(run_id: str) -> None:
             update_run(run_id, current_phase="正在专用测试桌面打开真实软件并采集活动")
             live_result = run_live(run_id, trace=trace)
             _write_evidence(run_id, "live.json", live_result)
+            if trace.stop_error:
+                raise trace.stop_error
             live_raw = read_json(directory / "evidence" / "live_raw.json", {})
             if live_raw:
                 privacy_stages["live_capture"] = live_raw.get("snapshots", [])
@@ -534,6 +559,12 @@ def run(run_id: str) -> None:
         cancelled = _cancelled(run_id)
         final_status = _final_status(manifest, dataset, cases, read_json(directory / "manifest.json")["sections"],
                                      embeddings_ready, cancelled)
+    except ModelWaitStopped as error:
+        final_status = "cancelled" if error.kind == "cancelled" else "partial"
+        _write_evidence(run_id, "model_wait.json", {"status": error.kind, "reason": str(error),
+                                                   "model_timeout_s": manifest.get("model_timeout_s", 120)})
+        section(run_id, "model_wait", "partial", str(error))
+        update_run(run_id, error=str(error))
     except Exception as error:
         (directory / "error.txt").write_text(traceback.format_exc(), encoding="utf-8")
         update_run(run_id, error=str(error))
@@ -560,6 +591,11 @@ def run(run_id: str) -> None:
             update_run(run_id, cleanup_error=str(error))
             final_status = "failed"
         update_run(run_id, status=final_status, finished_at=now())
+        if final_status in {"failed", "partial", "cancelled"} or not (directory / "reports" / "report.html").exists():
+            try:
+                export(run_id)
+            except Exception as error:
+                update_run(run_id, report_error=str(error))
         from .controller import release_lock
         release_lock(run_id)
 

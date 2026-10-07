@@ -29,6 +29,7 @@ EVIDENCE_FILES = (
     "evidence/desktop_queries.json", "evidence/retrieval_corpus.json", "evidence/fixture.json",
     "evidence/timeindex_db.complete.json",
     "evidence/time_queries.json",
+    "evidence/model_wait.json", "evidence/core_repairs.json", "evidence/core_repairs_calls.json",
 )
 BUNDLE_FILES = ("manifest.json", "dataset.json", *REPORT_FILES, *PAPER_FILES, *EVIDENCE_FILES)
 _CREDENTIAL_FIELDS = {"apikey", "llmapikey", "accesstoken", "authorization", "headers", "extraheaders",

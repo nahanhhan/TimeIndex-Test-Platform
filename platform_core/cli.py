@@ -38,6 +38,8 @@ def main() -> None:
     run.add_argument("--model", default="gemma-4-e4b")
     run.add_argument("--embedding-model", default="text-embedding-embeddinggemma-300m")
     run.add_argument("--model-pid", type=int)
+    run.add_argument("--model-timeout", type=float, default=120, help="每次正式模型请求的等待上限（秒）；连接探测最多60秒")
+    run.add_argument("--verify-core-repairs", action="store_true", help="附加数字编号、代码块及写入失败保护专项验证（模拟接口）")
     one = commands.add_parser("status", help="查看进度")
     one.add_argument("run_id")
     stop = commands.add_parser("cancel", help="取消实验")
@@ -66,7 +68,8 @@ def main() -> None:
                                   model=args.model, embedding_model=args.embedding_model,
                                   model_pid=args.model_pid, allow_remote_model=args.allow_lan_model,
                                   allow_no_model=args.no_model_self_check, api_key=api_key,
-                                  timeindex_project=args.timeindex_project)
+                                  timeindex_project=args.timeindex_project, model_timeout_s=args.model_timeout,
+                                  verify_core_repairs=args.verify_core_repairs)
     elif args.command == "status":
         result = controller.status(args.run_id)
     elif args.command == "cancel":

@@ -101,7 +101,8 @@ class ReportRegressionTests(unittest.TestCase):
         self.assertTrue(any(row["reason"] == "fixture tag error" for row in result["failures"]))
         output = export(directory.name)
         self.assertIn("1 / 4", output["html"].read_text(encoding="utf-8"))
-        self.assertEqual(read_json(output["details"])["queries"], queries)
+        self.assertEqual(read_json(output["details"])["queries"]["keyword"][0]["returned_ids"], queries["keyword"][0]["returned_ids"])
+        self.assertEqual(read_json(output["details"])["queries"]["keyword"][0]["model_call_ids"], [])
         self.assertEqual(path.read_bytes(), before)
 
     def test_organization_error_is_kept_alongside_successful_fields(self) -> None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import secrets
+import math
 from pathlib import Path
 from typing import Any, Callable
 
@@ -24,7 +25,10 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
                dedicated_vm: bool = False, endpoint: str = "http://127.0.0.1:1234/v1",
                model: str = "gemma-4-e4b", embedding_model: str = "text-embedding-embeddinggemma-300m",
                model_pid: int | None = None, allow_remote_model: bool = False,
-               allow_no_model: bool = False, timeindex_project: str | Path | None = None) -> dict[str, Any]:
+               allow_no_model: bool = False, timeindex_project: str | Path | None = None,
+               model_timeout_s: float = 120.0, verify_core_repairs: bool = False) -> dict[str, Any]:
+    if isinstance(model_timeout_s, bool) or not isinstance(model_timeout_s, (int, float)) or not math.isfinite(model_timeout_s) or model_timeout_s <= 0:
+        raise ValueError("模型等待上限必须是大于零的有限秒数")
     if mode == "custom" and dataset_path is None:
         raise ValueError("自定义模式需要数据集文件")
     if mode == "desktop" and not dedicated_vm:
@@ -60,7 +64,7 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
         "dataset_version": data["version"],
         "evaluation_profile": data.get("evaluation_profile", "diagnostic"),
         "scoring_version": SCORING_VERSION,
-        "evidence_schema_version": 3,
+        "evidence_schema_version": 4,
         "desktop_mode": "real_applications" if dedicated_vm and mode in {"full", "desktop", "paper"} else "not_selected",
         "dataset_sha256": dataset_sha256,
         "seed": data.get("seed"),
@@ -78,6 +82,8 @@ def create_run(mode: str, dataset_path: Path | None = None, *, resources: bool =
         "model": model,
         "embedding_model": embedding_model,
         "model_pid": model_pid,
+        "model_timeout_s": float(model_timeout_s),
+        "verify_core_repairs": bool(verify_core_repairs),
         "sections": {},
         "completed_cases": 0,
         "total_cases": 9 if mode == "desktop" else len(selected["cases"]),
@@ -100,6 +106,7 @@ def _mutate_run(run_id: str, mutate: Callable[[dict[str, Any]], None],
         mutate(manifest)
         if manifest.get("status") in TERMINAL_STATUSES:
             manifest["current_phase"] = None
+            manifest["current_model_call"] = None
         manifest["updated_at"] = now()
         atomic_json(path, manifest)
         return manifest

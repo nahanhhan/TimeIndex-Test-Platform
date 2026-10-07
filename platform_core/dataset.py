@@ -32,7 +32,7 @@ TAG_ALIASES = {
     "reading": ["reading", "browse", "browsing", "阅读", "数据库", "索引", "database", "技术资料"],
     "writing": ["writing", "文稿", "报告", "写作", "Word", "word", "document"],
     "meeting": ["meeting", "会议", "calendar", "日历", "Outlook", "outlook"],
-    "analysis": ["analysis", "分析", "数据", "图表", "Excel", "excel", "spreadsheet"],
+    "analysis": ["analysis", "data", "分析", "数据", "图表", "Excel", "excel", "spreadsheet"],
     "design": ["design", "设计", "界面", "Figma", "figma", "UI", "ui"],
 }
 
@@ -74,7 +74,7 @@ def build_default() -> dict[str, Any]:
                 "tags": TAG_ALIASES[tag],
                 "relevant_ids": [target["id"]],
             })
-    return {"version": "2.0", "synthetic": True, "seed": 20260927, "cases": cases, "queries": queries,
+    return {"version": "2.1", "synthetic": True, "seed": 20260927, "cases": cases, "queries": queries,
             "quick_case_ids": ["S01-01", "S01-02", "S02-01", "S02-02", "S03-01", "S04-01", "S05-01", "S06-01"],
             "quick_query_ids": ["Q01-01", "Q02-01", "Q03-01", "Q05-01"],
             "measurement_scope": "合成快照用于检查真实 TimeIndex 推理、入库、整理与检索；不证明实际软件采集效果"}
